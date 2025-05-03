@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/configuracao/rotas.dart';
+import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
+import 'package:projeto_lary/widgets/roupas/widget_roupa.dart';
 import 'package:projeto_lary/widgets/usuario/widget_cadastro_usuario.dart';
 import 'package:projeto_lary/widgets/usuario/widget_editar_perfil.dart';
 import 'package:projeto_lary/widgets/usuario/widget_login_usuario.dart';
@@ -22,6 +24,8 @@ class Aplicativo extends StatelessWidget{
         Rotas.cadastro: (context) =>  WidgetCadastroUsuario(),
         Rotas.usuario:(context)=> WidgetUsuario(),
         Rotas.editarPerfil:(context)=> WidgetEditarPerfil(),
+        Rotas.roupa:(context)=> WidgetRoupa(),
+        Rotas.detalhesRoupas:(context)=> WidgetDetalhesRoupas(roupa: {}),
       }  
     );
   }

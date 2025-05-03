@@ -1,0 +1,42 @@
+import 'package:flutter/material.dart';
+
+class WidgetDetalhesRoupas extends StatelessWidget {
+  final Map<String, String> roupa;
+
+  const WidgetDetalhesRoupas({Key? key, required this.roupa}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              roupa['imagem'] ?? '',
+              height: 300,
+              fit: BoxFit.cover,
+            ),
+          ),
+          const SizedBox(height: 24),
+          Text('Nome: ${roupa['nome']}', style: TextStyle(fontSize: 18)),
+          Text('Tipo: ${roupa['tipo']}', style: TextStyle(fontSize: 18)),
+          Text('Cor: ${roupa['cor']}', style: TextStyle(fontSize: 18)),
+          Text('Marca: ${roupa['marca']}', style: TextStyle(fontSize: 18)),
+          const SizedBox(height: 20),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('Fechar'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 243, 33, 219),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

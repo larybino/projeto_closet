@@ -5,6 +5,8 @@ class Rotas{
   static const String look = '/look';
   static const String marca = '/marca';
   static const String roupa = '/roupa';
+  static const String cadastrarRoupa = '/cadastrar_roupa';
+  static const String detalhesRoupas = '/detalhes_roupas';
   static const String acessorios = '/acessorios';
   static const String cadastro = '/cadastro_usuario';
   static const String login = '/login';
