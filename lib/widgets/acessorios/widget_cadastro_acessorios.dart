@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class WidgetCadastroRoupa extends StatefulWidget {
+class WidgetCadastroAcessorios extends StatefulWidget {
   @override
-  State<WidgetCadastroRoupa> createState() => _WidgetCadastroRoupaState();
+  State<WidgetCadastroAcessorios> createState() => _WidgetCadastroAcessoriosState();
 }
 
-class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
+class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Roupa'),
+        title: const Text('Cadastro de Acessorios'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: Form(
@@ -22,7 +22,7 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                 height: 100,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save),
-                  label: const Text('Foto Roupa'),
+                  label: const Text('Foto Acessórios'),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(
                       const Color.fromARGB(255, 243, 33, 219),
@@ -34,14 +34,14 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Nome',
+                  labelText: 'Estilo',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Tipo',
+                  labelText: 'Material',
                   border: OutlineInputBorder(),
                 ),
               ),

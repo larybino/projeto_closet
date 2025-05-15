@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 
 class WidgetDetalhesRoupas extends StatelessWidget {
-  final Map<String, String> roupa;
+  final roupa;
 
   const WidgetDetalhesRoupas({Key? key, required this.roupa}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Column(
+    return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.network(
               roupa['imagem'] ?? '',
-              height: 300,
+              height: 500,
               fit: BoxFit.cover,
             ),
           ),
@@ -36,7 +34,6 @@ class WidgetDetalhesRoupas extends StatelessWidget {
             ),
           ),
         ],
-      ),
     );
   }
 }

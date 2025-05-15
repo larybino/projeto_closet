@@ -12,9 +12,7 @@ class WidgetUsuario extends StatelessWidget {
         title: const Text('Meu Perfil'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
+      body: Column(
           children: [
             const CircleAvatar(
               radius: 100,
@@ -44,17 +42,6 @@ class WidgetUsuario extends StatelessWidget {
                 Navigator.pushNamed(context, '/editar_perfil');
               },
             ),
-            ListTile(
-              leading: const Icon(
-                Icons.lock,
-                color: Color.fromARGB(255, 243, 33, 219),
-              ),
-              title: const Text('Alterar Senha'),
-              onTap: () {
-                Navigator.pushNamed(context, '/alterar_senha');
-              },
-            ),
-            const Spacer(),
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
               label: const Text('Sair'),
@@ -74,7 +61,6 @@ class WidgetUsuario extends StatelessWidget {
             ),
           ],
         ),
-      ),
     );
   }
 }

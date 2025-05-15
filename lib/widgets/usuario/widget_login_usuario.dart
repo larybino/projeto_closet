@@ -18,9 +18,7 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
         title: const Text('Login'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
+      body:Form(
           key: _formKey,
           child: Column(
             children: [
@@ -103,7 +101,6 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
             ],
           ),
         ),
-      ),
     );
   }
 }

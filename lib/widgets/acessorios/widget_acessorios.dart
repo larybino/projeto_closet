@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
+import 'package:projeto_lary/widgets/acessorios/widget_detalhes_acessorios.dart';
 
-class WidgetRoupa extends StatelessWidget {
-  var roupas = [
+class WidgetAcessorios extends StatelessWidget {
+  var acessorios = [
     {
       'nome': 'Vestido Floral',
       'tipo': 'Vestido',
@@ -38,13 +38,13 @@ class WidgetRoupa extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Minhas Roupas'),
+        title: const Text('Minhas acessorios'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: GridView.builder(
-          itemCount: roupas.length,
+          itemCount: acessorios.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 8,
@@ -52,14 +52,14 @@ class WidgetRoupa extends StatelessWidget {
             childAspectRatio: 0.50,
           ),
           itemBuilder: (context, index) {
-            final roupa = roupas[index];
+            final roupa = acessorios[index];
             return GestureDetector(
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   isScrollControlled: true,
                   builder: (context) {
-                    return WidgetDetalhesRoupas(roupa: roupa);
+                    return WidgetDetalhesAcessorios(acessorios: acessorios);
                   },
                 );
               },

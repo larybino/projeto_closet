@@ -17,8 +17,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
         title: const Text('Cadastro de Usuário'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Center(
-        child: Form(
+      body: Form(
           key: _formKey,
           child: Column(
             children: [
@@ -118,7 +117,6 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
             ],
           ),
         ),
-      ),
     );
   }
 }

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class WidgetCadastroRoupa extends StatefulWidget {
+class WidgetCadastroEvento extends StatefulWidget {
   @override
-  State<WidgetCadastroRoupa> createState() => _WidgetCadastroRoupaState();
+  State<WidgetCadastroEvento> createState() => _WidgetCadastroEventoState();
 }
 
-class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
+class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Roupa'),
+        title: const Text('Cadastro de Eventos'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: Form(
@@ -22,7 +22,7 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                 height: 100,
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.save),
-                  label: const Text('Foto Roupa'),
+                  label: const Text('Look do Evento'),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all<Color>(
                       const Color.fromARGB(255, 243, 33, 219),
@@ -34,28 +34,28 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Nome',
+                  labelText: 'Local',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Tipo',
+                  labelText: 'Horário',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Cor',
+                  labelText: 'Companhia',
                   border: OutlineInputBorder(),
                 ),
               ),
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: 'Marca',
+                  labelText: 'Ocasião',
                   border: OutlineInputBorder(),
                 ),
               ),

@@ -25,7 +25,7 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
           child: Column(
             children: [
               const Icon(
-                Icons.person_pin_circle,
+                Icons.person,
                 size: 80,
                 color: Color.fromARGB(255, 243, 33, 219),
               ),
