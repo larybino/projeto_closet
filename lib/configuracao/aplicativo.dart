@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/configuracao/rotas.dart';
+import 'package:projeto_lary/widgets/acessorios/widget_acessorios.dart';
 import 'package:projeto_lary/widgets/acessorios/widget_cadastro_acessorios.dart';
 import 'package:projeto_lary/widgets/look/widget_cadastro_look.dart';
 import 'package:projeto_lary/widgets/roupas/widget_cadastro_roupa.dart';
@@ -28,6 +29,7 @@ class Aplicativo extends StatelessWidget{
         Rotas.usuario:(context)=> WidgetUsuario(),
         Rotas.editarPerfil:(context)=> WidgetEditarPerfil(),
         Rotas.roupa:(context)=> WidgetRoupa(),
+        Rotas.acessorios:(context)=> WidgetAcessorios(),
         Rotas.detalhesRoupas:(context)=> WidgetDetalhesRoupas(roupa: {}),
         Rotas.cadastrarRoupa:(context)=> WidgetCadastroRoupa(),
         Rotas.cadastrarAcessorios:(context)=> WidgetCadastroAcessorios(),

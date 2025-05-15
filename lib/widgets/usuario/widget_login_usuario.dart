@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_texto.dart';
 
 class WidgetLoginUsuario extends StatefulWidget {
   @override
@@ -37,18 +38,8 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
                 ),
               ),
               const SizedBox(height: 30),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (valor) {
-                  if (valor == null || !valor.contains('@')) {
-                    return 'Digite um e-mail válido';
-                  }
-                  return null;
-                },
+              CampoTexto('Email', validator: (val)=>
+                (val == null || !val.contains('@')) ? null : 'Email inválido'
               ),
               const SizedBox(height: 16),
               TextFormField(
