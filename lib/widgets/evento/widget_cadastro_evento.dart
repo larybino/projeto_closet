@@ -15,22 +15,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
       ),
       body: Form(
           child: Column(
-            children: [
-              const SizedBox(height: 16),
-              SizedBox(
-                width: 200,
-                height: 100,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Look do Evento'),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color.fromARGB(255, 243, 33, 219),
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
+            children: [              
               const SizedBox(height: 16),
               TextFormField(
                 decoration: const InputDecoration(

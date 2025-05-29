@@ -39,7 +39,7 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
               ),
               const SizedBox(height: 30),
               CampoTexto('Email', validator: (val)=>
-                (val == null || !val.contains('@')) ? null : 'Email inválido'
+                (val != null && val.contains('@')) ? null : 'Email inválido'
               ),
               const SizedBox(height: 16),
               TextFormField(

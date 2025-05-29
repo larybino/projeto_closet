@@ -13,7 +13,8 @@ class CampoTexto extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      decoration: InputDecoration(labelText: rotulo, border: OutlineInputBorder(),
+      decoration: InputDecoration(
+        labelText: rotulo, border: OutlineInputBorder(),
       ),
       validator: validator
     );
