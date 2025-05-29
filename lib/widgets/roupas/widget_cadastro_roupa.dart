@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_texto.dart';
 
 class WidgetCadastroRoupa extends StatefulWidget {
   @override
@@ -32,33 +33,33 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                 ),
               ),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nome',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              CampoTexto('Nome', validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um nome.';
+                }
+                return null;
+              }),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Tipo',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              CampoTexto('Tipo', validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um tipo.';
+                }
+                return null;
+              }),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Cor',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              CampoTexto('Cor', validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira a cor.';
+                }
+                return null;
+              }),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Marca',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+              CampoTexto('Marca', validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira ua marca.';
+                }
+                return null;
+              }),
             ],
           ),
         ),

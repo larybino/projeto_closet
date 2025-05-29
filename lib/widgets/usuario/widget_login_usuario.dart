@@ -38,8 +38,18 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
                 ),
               ),
               const SizedBox(height: 30),
-              CampoTexto('Email', validator: (val)=>
-                (val != null && val.contains('@')) ? null : 'Email inválido'
+              TextFormField(
+                controller: _emailController,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                  border: OutlineInputBorder(),
+                ),
+                validator: (value) {
+                  if (value == null || !value.contains('@')) {
+                    return 'Email inválido';
+                  }
+                  return null;
+                },
               ),
               const SizedBox(height: 16),
               TextFormField(

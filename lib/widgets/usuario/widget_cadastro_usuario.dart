@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_texto.dart';
 
 class WidgetCadastroUsuario extends StatefulWidget {
   @override
@@ -27,31 +28,19 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                 color: Color.fromARGB(255, 243, 33, 219),
               ),
               const SizedBox(height: 20),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Nome',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (valor) {
-                  if (valor == null || valor.length < 3) {
-                    return 'Nome deve ter ao menos 3 letras';
-                  }
-                  return null;
-                },
-              ),
+              CampoTexto('Nome', validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira um nome.';
+                }
+                return null;
+              }),
               const SizedBox(height: 16),
-              TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
-                ),
-                validator: (valor) {
-                  if (valor == null || !valor.contains('@')) {
-                    return 'Digite um email válido';
-                  }
-                  return null;
-                },
-              ),
+              CampoTexto('Email', validator: (value) {
+                if (value == null || value.contains('@')) {
+                  return 'Digite um email válido';
+                }
+                return null;
+              }),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _senhaController,
