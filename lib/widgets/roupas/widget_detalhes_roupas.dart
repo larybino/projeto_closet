@@ -19,7 +19,7 @@ class WidgetDetalhesRoupas extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 24),
-          Text('Nome: ${roupa['nome']}', style: TextStyle(fontSize: 18)),
+          Text('Modelo: ${roupa['modelo']}', style: TextStyle(fontSize: 18)),
           Text('Tipo: ${roupa['tipo']}', style: TextStyle(fontSize: 18)),
           Text('Cor: ${roupa['cor']}', style: TextStyle(fontSize: 18)),
           Text('Marca: ${roupa['marca']}', style: TextStyle(fontSize: 18)),

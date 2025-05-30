@@ -4,7 +4,7 @@ import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
 class WidgetRoupa extends StatelessWidget {
   final roupas = [
     {
-      'nome': 'Vestido Floral',
+      'modelo': 'Vestido Floral',
       'tipo': 'Vestido',
       'cor': 'Multicolorido',
       'marca': 'Farm',
@@ -12,21 +12,21 @@ class WidgetRoupa extends StatelessWidget {
           'https://lojafarm.vteximg.com.br/arquivos/ids/3411470/331280_49147_1-VESTIDO-LONGO-FLORAL-DE-VERAO.jpg?v=638590753519000000',
     },
     {
-      'nome': 'Calça Flare Canelada',
+      'modelo': 'Calça Flare Canelada',
       'tipo': 'Calça',
       'cor': 'Preta',
       'marca': 'Prada',
       'imagem': 'data:image/jpeg;base64,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',
     },
     {
-      'nome': 'Vestido de tricô plissado',
+      'modelo': 'Vestido de tricô plissado',
       'tipo': 'Vestido',
       'cor': 'Vermelho',
       'marca': 'Balmain',
       'imagem': 'https://cdn11.bigcommerce.com/s-2w3d34av6x/images/stencil/1280x1280/products/12889/77298/grrly-grrls-crimson-elegance-turtleneck-gown__05612.1734861376.jpg?c=1',
     },
    {
-      'nome': 'Saia xadrez cintura alta',
+      'modelo': 'Saia xadrez cintura alta',
       'tipo': 'Saia',
       'cor': 'Xadrez',
       'marca': 'Miu Miu',
@@ -88,7 +88,7 @@ class WidgetRoupa extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            roupa['nome']!,
+                            roupa['modelo']!,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,

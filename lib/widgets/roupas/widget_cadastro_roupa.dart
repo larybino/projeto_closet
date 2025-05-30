@@ -45,10 +45,10 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
               ),
               const SizedBox(height: 16),
               CampoTexto(
-                'Nome',
+                'Modelo',
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um nome.';
+                    return 'Por favor, insira um modelo.';
                   }
                   return null;
                 },

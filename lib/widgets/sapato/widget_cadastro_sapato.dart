@@ -45,7 +45,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
               ),
               const SizedBox(height: 16),
               CampoTexto(
-                'Nome',
+                'Modelo',
                 validator: (value) {
                   // if (value == null || value.isEmpty) {
                   //   return 'Por favor, insira o estilo.';

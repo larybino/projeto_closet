@@ -5,7 +5,7 @@ import 'package:projeto_lary/widgets/sapato/widget_detalhes_sapato.dart';
 class WidgetSapato extends StatelessWidget {
   final sapatos = [
     {
-      'nome': 'Scarpin Preto Verniz Salto Alto Fino',
+      'modelo': 'Scarpin Preto Verniz Salto Alto Fino',
       'material': 'Verniz',
       'cor': 'Preto',
       'marca': 'Constance',
@@ -13,21 +13,21 @@ class WidgetSapato extends StatelessWidget {
           'https://constance.vtexassets.com/arquivos/ids/2373326-1200-auto?v=638757392018200000&width=1200&height=auto&aspect=true',
     },
     {
-      'nome': 'Salto Geométrico',
+      'modelo': 'Salto Geométrico',
       'material': 'Sintético',
       'cor': 'Preto',
       'marca': 'Vizzano',
       'imagem': 'https://static.dafiti.com.br/p/vizzano-sand%C3%A1lia-vizzano-salto-geom%C3%A9trico-preta-7306-54537441-1-zoom.jpg?ims=filters:quality(70)',
     },
     {
-      'nome': 'Sandália Meia Pata',
+      'modelo': 'Sandália Meia Pata',
       'material': 'Nobuck',
       'cor': 'Preto',
       'marca': 'Modarpe',
       'imagem': 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-preto-m40-7536-38203041-1-zoom.jpg?ims=filters:quality(70)',
     },
    {
-      'nome': 'Sandália Meia Pata',
+      'modelo': 'Sandália Meia Pata',
       'material': 'Nobuck',
       'cor': 'Branco',
       'marca': 'Modarpe',
@@ -89,7 +89,7 @@ class WidgetSapato extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            sapato['nome']!,
+                            sapato['modelo']!,
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
