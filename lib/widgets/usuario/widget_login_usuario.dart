@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/campo_texto.dart';
 
 class WidgetLoginUsuario extends StatefulWidget {
+  const WidgetLoginUsuario({super.key});
+
   @override
   State<WidgetLoginUsuario> createState() => _WidgetLoginUsuarioState();
 }

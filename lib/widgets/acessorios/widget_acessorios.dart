@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/acessorios/widget_detalhes_acessorios.dart';
 
 class WidgetAcessorios extends StatelessWidget {
-  var acessorios = [
+  final acessorios = [
     {
       'estilo': 'Pulseira Life',
       'material': 'Prata',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
 
 class WidgetRoupa extends StatelessWidget {
-  var roupas = [
+  final roupas = [
     {
       'nome': 'Vestido Floral',
       'tipo': 'Vestido',

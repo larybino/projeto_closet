@@ -7,6 +7,9 @@ import 'package:projeto_lary/widgets/look/widget_cadastro_look.dart';
 import 'package:projeto_lary/widgets/roupas/widget_cadastro_roupa.dart';
 import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
 import 'package:projeto_lary/widgets/roupas/widget_roupa.dart';
+import 'package:projeto_lary/widgets/sapato/widget_cadastro_sapato.dart';
+import 'package:projeto_lary/widgets/sapato/widget_detalhes_sapato.dart';
+import 'package:projeto_lary/widgets/sapato/widget_sapato.dart';
 import 'package:projeto_lary/widgets/usuario/widget_cadastro_usuario.dart';
 import 'package:projeto_lary/widgets/usuario/widget_editar_perfil.dart';
 import 'package:projeto_lary/widgets/usuario/widget_login_usuario.dart';
@@ -30,12 +33,18 @@ class Aplicativo extends StatelessWidget{
         Rotas.usuario:(context)=> WidgetUsuario(),
         Rotas.editarPerfil:(context)=> WidgetEditarPerfil(),
         Rotas.roupa:(context)=> WidgetRoupa(),
-        Rotas.acessorios:(context)=> WidgetAcessorios(),
+        Rotas.acessorio:(context)=> WidgetAcessorios(),
+        Rotas.sapato:(context)=> WidgetSapato(),
         Rotas.detalhesRoupas:(context)=> WidgetDetalhesRoupas(roupa: {}),
         Rotas.cadastrarRoupa:(context)=> WidgetCadastroRoupa(),
         Rotas.cadastrarAcessorios:(context)=> WidgetCadastroAcessorios(),
         Rotas.cadastrarLook:(context)=> WidgetCadastroLook(),
         Rotas.cadastrarEvento:(context)=> WidgetCadastroEvento(),
+        Rotas.detalhesEvento:(context)=> WidgetCadastroEvento(),
+        Rotas.detalhesLook:(context)=> WidgetCadastroLook(),
+        Rotas.detalhesAcessorios:(context)=> WidgetCadastroAcessorios(),
+        Rotas.cadastrarSapato:(context)=> WidgetCadastroSapato(),
+        Rotas.detalhesSapatos:(context)=> WidgetDetalhesSapatos(sapato: {}),
       }  
     );
   }
