@@ -14,7 +14,18 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
         title: const Text('Cadastro de Eventos'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Form(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child:Form(
         child: Column(
           children: [
             const SizedBox(height: 16),
@@ -74,6 +85,6 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
           ],
         ),
       ),
-    );
+    ),);
   }
 }

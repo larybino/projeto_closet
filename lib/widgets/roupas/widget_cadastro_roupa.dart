@@ -14,7 +14,18 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
         title: const Text('Cadastro de Roupa'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Form(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child: Form(
           child: Column(
             children: [
               const SizedBox(height: 16),
@@ -33,36 +44,63 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                 ),
               ),
               const SizedBox(height: 16),
-              CampoTexto('Nome', validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira um nome.';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Nome',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira um nome.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
-              CampoTexto('Tipo', validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira um tipo.';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Tipo',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira um tipo.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
-              CampoTexto('Cor', validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira a cor.';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Cor',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira a cor.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
-              CampoTexto('Marca', validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira ua marca.';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Marca',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira ua marca.';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.save),
+                  label: const Text('Cadastrar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 243, 33, 219),
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+              ),
             ],
           ),
         ),
+      ),
     );
   }
 }

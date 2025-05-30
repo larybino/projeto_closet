@@ -18,7 +18,18 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
         title: const Text('Cadastro de Usuário'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Form(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child: Form(
           key: _formKey,
           child: Column(
             children: [
@@ -28,19 +39,25 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                 color: Color.fromARGB(255, 243, 33, 219),
               ),
               const SizedBox(height: 20),
-              CampoTexto('Nome', validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira um nome.';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Nome',
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira um nome.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
-              CampoTexto('Email', validator: (value) {
-                if (value == null || value.contains('@')) {
-                  return 'Digite um email válido';
-                }
-                return null;
-              }),
+              CampoTexto(
+                'Email',
+                validator: (value) {
+                  if (value == null || value.contains('@')) {
+                    return 'Digite um email válido';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _senhaController,
@@ -65,7 +82,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                   border: OutlineInputBorder(),
                 ),
                 validator: (valor) {
-                  if (valor!= _senhaController.text) {
+                  if (valor != _senhaController.text) {
                     return 'Senha não coincidem';
                   }
                   return null;
@@ -88,9 +105,9 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                       Navigator.pushNamed(context, '/');
                     }
                   },
-                  )
                 ),
-                 const SizedBox(height: 12),
+              ),
+              const SizedBox(height: 12),
               TextButton(
                 onPressed: () {
                   Navigator.pushNamed(context, '/login');
@@ -106,6 +123,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
             ],
           ),
         ),
+      ),
     );
   }
 }

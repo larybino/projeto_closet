@@ -15,12 +15,22 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 255, 240, 250),
       appBar: AppBar(
         title: const Text('Login'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body:Form(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              const Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child: Form(
           key: _formKey,
           child: Column(
             children: [
@@ -103,6 +113,7 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
             ],
           ),
         ),
+      ),
     );
   }
 }
