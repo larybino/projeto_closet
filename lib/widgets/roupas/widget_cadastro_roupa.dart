@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_foto.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
 import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
 
@@ -12,6 +13,7 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
   final _tipoController = TextEditingController();
   final _corController = TextEditingController();
   final _marcaController = TextEditingController();
+  final _fotoController = TextEditingController(); 
 
   @override
   Widget build(BuildContext context) {
@@ -35,20 +37,7 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              SizedBox(
-                width: 200,
-                height: 100,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Foto Roupa'),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color.fromARGB(255, 243, 33, 219),
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
+              CampoFoto(controller: _fotoController),
               const SizedBox(height: 16),
               CampoTexto(
                 'Modelo',
@@ -109,7 +98,7 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                       tipo: _tipoController.text,
                       cor: _corController.text,
                       marca: _marcaController.text,
-                      // fotoUrl: você pode adicionar futuramente se implementar upload de imagem
+                      fotoUrl: _fotoController.text,
                     );
 
                     Navigator.pushNamed(context, '/roupa');

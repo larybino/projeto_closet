@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_foto.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
 import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
 
@@ -14,6 +15,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
   final _materialController = TextEditingController();
   final _corController = TextEditingController();
   final _marcaController = TextEditingController();
+  final __fotoController = TextEditingController(); 
 
   @override
   Widget build(BuildContext context) {
@@ -37,20 +39,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              SizedBox(
-                width: 200,
-                height: 100,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Foto Sapato'),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color.fromARGB(255, 243, 33, 219),
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
+              CampoFoto(controller: __fotoController),
               const SizedBox(height: 16),
               CampoTexto(
                 'Modelo',
@@ -111,7 +100,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
                       material: _materialController.text,
                       cor: _corController.text,
                       marca: _marcaController.text,
-                      // fotoUrl: você pode adicionar futuramente se implementar upload de imagem
+                      fotoUrl: __fotoController.text,
                     );
 
                     // Aqui você pode salvar o DTO em uma lista, banco, API, etc.

@@ -1,13 +1,9 @@
-class DTOEvento{
-  String ? local;
-  String ? horario;
-  String ? companhia;
-  String ? ocasiao;
+class DTOEvento {
+  String? id;
+  String? local;
+  String? horario;
+  String? companhia;
+  String? ocasiao;
 
-  DTOEvento({
-    this.local,
-    this.horario,
-    this.companhia,
-    this.ocasiao,
-  });
+  DTOEvento({this.local, this.horario, this.companhia, this.ocasiao});
 }

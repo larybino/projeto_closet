@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/campo_foto.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
 import 'package:projeto_lary/widgets/usuario/DTOUsuario.dart';
 
@@ -110,16 +111,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                 },
               ),
               const SizedBox(height: 16),
-              CampoTexto(
-                'Foto de Perfil (URL)',
-                controller: _fotoPerfilController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira a URL da foto de perfil.';
-                  }
-                  return null;
-                },
-              ),
+              CampoFoto(controller: _fotoPerfilController),
               const SizedBox(height: 20),
               SizedBox(
                 width: 200,
@@ -145,7 +137,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Cadastro realizado!')),
                       );
-                      Navigator.pushNamed(context, '/');
+                      Navigator.pushNamed(context, '/usuario');
                     }
                   },
                 ),

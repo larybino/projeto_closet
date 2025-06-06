@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
+import 'package:projeto_lary/widgets/campo_foto.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
 
 class WidgetCadastroAcessorios extends StatefulWidget {
@@ -15,6 +16,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
   final __materialController = TextEditingController();
   final __corController = TextEditingController();
   final __marcaController = TextEditingController();
+  final __fotoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,20 +40,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
           child: Column(
             children: [
               const SizedBox(height: 16),
-              SizedBox(
-                width: 200,
-                height: 100,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Foto Acessórios'),
-                  style: ButtonStyle(
-                    backgroundColor: WidgetStateProperty.all<Color>(
-                      const Color.fromARGB(255, 243, 33, 219),
-                    ),
-                  ),
-                  onPressed: () {},
-                ),
-              ),
+              CampoFoto(controller: __fotoController),
               const SizedBox(height: 16),
               CampoTexto(
                 'Estilo',
@@ -111,6 +100,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
                       material: __materialController.text,
                       cor: __corController.text,
                       marca: __marcaController.text,
+                      fotoUrl: __fotoController.text,
                     );
 
                     Navigator.pushNamed(context, '/acessorio');
