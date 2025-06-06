@@ -132,6 +132,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
                       // Aqui você cria a instância do DTO
+                      // ignore: unused_local_variable
                       DTOUsurio usuario = DTOUsurio(
                         nome: _nomeController.text,
                         email: _emailController.text,

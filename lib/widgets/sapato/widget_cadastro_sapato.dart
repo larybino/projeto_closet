@@ -105,6 +105,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
                     backgroundColor: const Color.fromARGB(255, 243, 33, 219),
                   ),
                   onPressed: () {
+                    // ignore: unused_local_variable
                     DTOSapato sapato = DTOSapato(
                       modelo: _modeloController.text,
                       material: _materialController.text,

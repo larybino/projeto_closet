@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
+import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
 
 class WidgetCadastroRoupa extends StatefulWidget {
   @override
@@ -7,6 +8,11 @@ class WidgetCadastroRoupa extends StatefulWidget {
 }
 
 class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
+  final _modeloController = TextEditingController();
+  final _tipoController = TextEditingController();
+  final _corController = TextEditingController();
+  final _marcaController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,40 +52,44 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
               const SizedBox(height: 16),
               CampoTexto(
                 'Modelo',
+                controller: _modeloController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um modelo.';
-                  }
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira o estilo.';
+                  // }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               CampoTexto(
                 'Tipo',
+                controller: _tipoController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira um tipo.';
-                  }
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira o material.';
+                  // }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               CampoTexto(
                 'Cor',
+                controller: _corController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira a cor.';
-                  }
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira a cor.';
+                  // }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
               CampoTexto(
                 'Marca',
+                controller: _marcaController,
                 validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira ua marca.';
-                  }
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira ua marca.';
+                  // }
                   return null;
                 },
               ),
@@ -93,7 +103,14 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                     backgroundColor: const Color.fromARGB(255, 243, 33, 219),
                   ),
                   onPressed: () {
-                    Navigator.pushNamed(context, '/');
+                    // ignore: unused_local_variable
+                    DTORoupas roupas = DTORoupas(
+                      modelo: _modeloController.text,
+                      tipo: _tipoController.text,
+                      cor: _corController.text,
+                      marca: _marcaController.text,
+                      // fotoUrl: você pode adicionar futuramente se implementar upload de imagem
+                    );
                   },
                 ),
               ),

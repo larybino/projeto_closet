@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
+import 'package:projeto_lary/widgets/evento/DTOEvento.dart';
 
 class WidgetCadastroEvento extends StatefulWidget {
+  const WidgetCadastroEvento({super.key});
+
   @override
   State<WidgetCadastroEvento> createState() => _WidgetCadastroEventoState();
 }
 
 class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
+  final __localController = TextEditingController();
+  final __horarioController = TextEditingController();
+  final __companhiaController = TextEditingController();
+  final __ocasiaoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +39,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             const SizedBox(height: 16),
             CampoTexto(
               'Local',
+              controller: __localController,
               validator: (value) {
                 // if (value == null || value.isEmpty) {
                 //   return 'Por favor, insira um local.';
@@ -41,6 +50,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             const SizedBox(height: 16),
             CampoTexto(
               'Horário',
+              controller: __horarioController,
               validator: (value) {
                 // if (value == null || value.isEmpty) {
                 //   return 'Por favor, insira um horário.';
@@ -51,6 +61,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             const SizedBox(height: 16),
             CampoTexto(
               'Companhia',
+              controller: __companhiaController,
               validator: (value) {
                 // if (value == null || value.isEmpty) {
                 //   return 'Por favor, insira a companhia.';
@@ -61,6 +72,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             const SizedBox(height: 16),
             CampoTexto(
               'Ocasião',
+              controller: __ocasiaoController,
               validator: (value) {
                 if (value == null || value.isEmpty) {
                   return 'Por favor, insira a ocasião.';
@@ -78,7 +90,12 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
                   backgroundColor: const Color.fromARGB(255, 243, 33, 219),
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/');
+                  DTOEvento evento = DTOEvento(
+                    local: __localController.text,
+                    horario: __horarioController.text,
+                    companhia: __companhiaController.text,
+                    ocasiao: __ocasiaoController.text,
+                  );
                 },
               ),
             ),
