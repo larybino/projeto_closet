@@ -33,75 +33,78 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             ],
           ),
         ),
-        child:Form(
-        child: Column(
-          children: [
-            const SizedBox(height: 16),
-            CampoTexto(
-              'Local',
-              controller: __localController,
-              validator: (value) {
-                // if (value == null || value.isEmpty) {
-                //   return 'Por favor, insira um local.';
-                // }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            CampoTexto(
-              'Horário',
-              controller: __horarioController,
-              validator: (value) {
-                // if (value == null || value.isEmpty) {
-                //   return 'Por favor, insira um horário.';
-                // }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            CampoTexto(
-              'Companhia',
-              controller: __companhiaController,
-              validator: (value) {
-                // if (value == null || value.isEmpty) {
-                //   return 'Por favor, insira a companhia.';
-                // }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            CampoTexto(
-              'Ocasião',
-              controller: __ocasiaoController,
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Por favor, insira a ocasião.';
-                }
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: 200,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.save),
-                label: const Text('Cadastrar'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color.fromARGB(255, 243, 33, 219),
-                ),
-                onPressed: () {
-                  DTOEvento evento = DTOEvento(
-                    local: __localController.text,
-                    horario: __horarioController.text,
-                    companhia: __companhiaController.text,
-                    ocasiao: __ocasiaoController.text,
-                  );
+        child: Form(
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Local',
+                controller: __localController,
+                validator: (value) {
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira um local.';
+                  // }
+                  return null;
                 },
               ),
-            ),
-          ],
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Horário',
+                controller: __horarioController,
+                validator: (value) {
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira um horário.';
+                  // }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Companhia',
+                controller: __companhiaController,
+                validator: (value) {
+                  // if (value == null || value.isEmpty) {
+                  //   return 'Por favor, insira a companhia.';
+                  // }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Ocasião',
+                controller: __ocasiaoController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira a ocasião.';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: 200,
+                child: ElevatedButton.icon(
+                  icon: const Icon(Icons.save),
+                  label: const Text('Cadastrar'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 243, 33, 219),
+                  ),
+                  onPressed: () {
+                    DTOEvento evento = DTOEvento(
+                      local: __localController.text,
+                      horario: __horarioController.text,
+                      companhia: __companhiaController.text,
+                      ocasiao: __ocasiaoController.text,
+                    );
+
+                    Navigator.pushNamed(context, '/evento');
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ),);
+    );
   }
 }

@@ -113,7 +113,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
                       marca: __marcaController.text,
                     );
 
-                    Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/acessorio');
                   },
                 ),
               ),

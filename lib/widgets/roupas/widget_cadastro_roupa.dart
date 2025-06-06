@@ -111,6 +111,8 @@ class _WidgetCadastroRoupaState extends State<WidgetCadastroRoupa> {
                       marca: _marcaController.text,
                       // fotoUrl: você pode adicionar futuramente se implementar upload de imagem
                     );
+
+                    Navigator.pushNamed(context, '/roupa');
                   },
                 ),
               ),

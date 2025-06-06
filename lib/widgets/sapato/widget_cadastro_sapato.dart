@@ -115,7 +115,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
                     );
 
                     // Aqui você pode salvar o DTO em uma lista, banco, API, etc.
-                    Navigator.pushNamed(context, '/');
+                    Navigator.pushNamed(context, '/sapato');
                   },
                 ),
               ),
