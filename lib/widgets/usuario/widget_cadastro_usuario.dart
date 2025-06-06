@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
+import 'package:projeto_lary/widgets/usuario/DTOUsuario.dart';
 
 class WidgetCadastroUsuario extends StatefulWidget {
+  const WidgetCadastroUsuario({super.key});
+
   @override
   State<WidgetCadastroUsuario> createState() => _WidgetCadastroUsuarioState();
 }
 
 class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
+  final _nomeController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _dataNascimentoController = TextEditingController();
+  final _fotoPerfilController =
+      TextEditingController(); // apenas se quiser usar texto para URL
   final _senhaController = TextEditingController();
   final _confirmaSenhaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -41,6 +49,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
               const SizedBox(height: 20),
               CampoTexto(
                 'Nome',
+                controller: _nomeController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, insira um nome.';
@@ -51,6 +60,7 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
               const SizedBox(height: 16),
               CampoTexto(
                 'Email',
+                controller: _emailController,
                 validator: (value) {
                   if (value == null || value.contains('@')) {
                     return 'Digite um email válido';
@@ -88,6 +98,28 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                   return null;
                 },
               ),
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Data de Nascimento',
+                controller: _dataNascimentoController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira a data de nascimento.';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              CampoTexto(
+                'Foto de Perfil (URL)',
+                controller: _fotoPerfilController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Por favor, insira a URL da foto de perfil.';
+                  }
+                  return null;
+                },
+              ),
               const SizedBox(height: 20),
               SizedBox(
                 width: 200,
@@ -99,6 +131,16 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
                   ),
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
+                      // Aqui você cria a instância do DTO
+                      DTOUsurio usuario = DTOUsurio(
+                        nome: _nomeController.text,
+                        email: _emailController.text,
+                        senha: _senhaController.text,
+                        dataNascimento: _dataNascimentoController.text,
+                        fotoPerfil: _fotoPerfilController.text,
+                      );
+
+                      // Aqui você pode usar o objeto `usuario` para salvar no banco, localStorage, API, etc.
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Cadastro realizado!')),
                       );
