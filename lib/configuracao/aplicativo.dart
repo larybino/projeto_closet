@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/configuracao/rotas.dart';
+import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
 import 'package:projeto_lary/widgets/acessorios/widget_acessorios.dart';
 import 'package:projeto_lary/widgets/acessorios/widget_cadastro_acessorios.dart';
+import 'package:projeto_lary/widgets/acessorios/widget_detalhes_acessorios.dart';
 import 'package:projeto_lary/widgets/evento/widget_cadastro_evento.dart';
 import 'package:projeto_lary/widgets/look/widget_cadastro_look.dart';
 import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
@@ -44,7 +46,7 @@ class Aplicativo extends StatelessWidget{
         Rotas.cadastrarEvento:(context)=> WidgetCadastroEvento(),
         Rotas.detalhesEvento:(context)=> WidgetCadastroEvento(),
         Rotas.detalhesLook:(context)=> WidgetCadastroLook(),
-        Rotas.detalhesAcessorios:(context)=> WidgetCadastroAcessorios(),
+        Rotas.detalhesAcessorios:(context)=> WidgetDetalhesAcessorios(acessorios: DTOAcessorios()), // Replace with a valid DTOAcessorios object
         Rotas.cadastrarSapato:(context)=> WidgetCadastroSapato(),
         Rotas.detalhesSapatos:(context)=> WidgetDetalhesSapatos(sapato: DTOSapato()), // Replace with a valid DTOSapato object
       }  

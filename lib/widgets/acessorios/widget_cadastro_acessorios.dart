@@ -95,6 +95,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
                     backgroundColor: const Color.fromARGB(255, 243, 33, 219),
                   ),
                   onPressed: () {
+                    // ignore: unused_local_variable
                     DTOAcessorios acessorio = DTOAcessorios(
                       estilo: __estiloController.text,
                       material: __materialController.text,
