@@ -6,5 +6,5 @@ class DTORoupas {
   String? marca;
   String? fotoUrl;
 
-  DTORoupas({this.modelo, this.tipo, this.cor, this.marca, this.fotoUrl});
+  DTORoupas({this.id, this.modelo, this.tipo, this.cor, this.marca, this.fotoUrl});
 }

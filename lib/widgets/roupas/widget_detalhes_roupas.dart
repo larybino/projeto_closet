@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
 
 class WidgetDetalhesRoupas extends StatelessWidget {
-  final roupa;
+  final DTORoupas roupa;
 
   const WidgetDetalhesRoupas({Key? key, required this.roupa}) : super(key: key);
 
@@ -13,16 +14,16 @@ class WidgetDetalhesRoupas extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
             child: Image.network(
-              roupa['imagem'] ?? '',
+              roupa.fotoUrl?? '',
               height: 500,
               fit: BoxFit.cover,
             ),
           ),
           const SizedBox(height: 24),
-          Text('Modelo: ${roupa['modelo']}', style: TextStyle(fontSize: 18)),
-          Text('Tipo: ${roupa['tipo']}', style: TextStyle(fontSize: 18)),
-          Text('Cor: ${roupa['cor']}', style: TextStyle(fontSize: 18)),
-          Text('Marca: ${roupa['marca']}', style: TextStyle(fontSize: 18)),
+          Text('Modelo: ${roupa.modelo}', style: TextStyle(fontSize: 18)),
+          Text('Tipo: ${roupa.tipo}', style: TextStyle(fontSize: 18)),
+          Text('Cor: ${roupa.cor}', style: TextStyle(fontSize: 18)),
+          Text('Marca: ${roupa.marca}', style: TextStyle(fontSize: 18)),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
