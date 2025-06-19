@@ -7,6 +7,7 @@ class DTOAcessorios {
   String? fotoUrl;
 
   DTOAcessorios({
+    this.id,
     this.estilo,
     this.material,
     this.cor,

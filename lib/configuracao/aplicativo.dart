@@ -6,6 +6,7 @@ import 'package:projeto_lary/widgets/acessorios/widget_cadastro_acessorios.dart'
 import 'package:projeto_lary/widgets/acessorios/widget_detalhes_acessorios.dart';
 import 'package:projeto_lary/widgets/evento/widget_cadastro_evento.dart';
 import 'package:projeto_lary/widgets/look/widget_cadastro_look.dart';
+import 'package:projeto_lary/widgets/look/widget_look.dart';
 import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
 import 'package:projeto_lary/widgets/roupas/widget_cadastro_roupa.dart';
 import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
@@ -39,6 +40,7 @@ class Aplicativo extends StatelessWidget{
         Rotas.roupa:(context)=> WidgetRoupa(),
         Rotas.acessorio:(context)=> WidgetAcessorios(),
         Rotas.sapato:(context)=> WidgetSapato(),
+        Rotas.look:(context)=> WidgetLook(),
         Rotas.detalhesRoupas:(context)=> WidgetDetalhesRoupas(roupa: DTORoupas()), // Replace with a valid DTORoupas object
         Rotas.cadastrarRoupa:(context)=> WidgetCadastroRoupa(),
         Rotas.cadastrarAcessorios:(context)=> WidgetCadastroAcessorios(),
