@@ -22,15 +22,12 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
   final _formKey = GlobalKey<FormState>();
   final _lookDAO = LookDAO();
 
-  // Controladores e listas de estado
   late final TextEditingController _nomeController;
   
-  // Futuros para carregar os itens do banco
   late Future<List<DTORoupas>> _roupasFuture;
   late Future<List<DTOSapato>> _sapatosFuture;
   late Future<List<DTOAcessorios>> _acessoriosFuture;
 
-  // Listas para guardar os itens selecionados
   final List<DTORoupas> _roupasSelecionadas = [];
   final List<DTOSapato> _sapatosSelecionados = [];
   final List<DTOAcessorios> _acessoriosSelecionados = [];
@@ -98,7 +95,20 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
         title: Text(widget.look == null ? 'Novo Look' : 'Editar Look'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: SingleChildScrollView(
+      body:Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -155,6 +165,7 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
             ),
           ),
         ),
+      ),
       ),
     );
   }

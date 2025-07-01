@@ -71,6 +71,19 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: Center(
+        child: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(24.0),
@@ -132,6 +145,7 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
               ),
             ),
           ),
+        ),
         ),
       ),
     );

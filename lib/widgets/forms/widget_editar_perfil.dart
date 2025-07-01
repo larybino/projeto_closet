@@ -74,7 +74,20 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
         title: const Text('Editar Perfil'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: SingleChildScrollView(
+      body:Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
@@ -128,6 +141,7 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
             ),
           ),
         ),
+      ),
       ),
     );
   }
