@@ -1,4 +1,4 @@
-class DTOUsurio{
+class DTOUsuario{
   String? id;
   String? nome;
   String? email;
@@ -6,7 +6,7 @@ class DTOUsurio{
   String? dataNascimento;
   String? fotoPerfil;
 
-  DTOUsurio({
+  DTOUsuario({
     this.id,
     this.nome,
     this.email,
