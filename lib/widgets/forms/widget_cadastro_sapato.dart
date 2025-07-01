@@ -1,114 +1,118 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/campo_foto.dart';
-import 'package:projeto_lary/widgets/campo_texto.dart';
-import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
+import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
+import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import '../campo_texto.dart';
 
 class WidgetCadastroSapato extends StatefulWidget {
-  const WidgetCadastroSapato({super.key});
+  final DTOSapato? sapato;
+
+  const WidgetCadastroSapato({super.key, this.sapato});
 
   @override
   State<WidgetCadastroSapato> createState() => _WidgetCadastroSapatoState();
 }
 
 class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
-  final _modeloController = TextEditingController();
-  final _materialController = TextEditingController();
-  final _corController = TextEditingController();
-  final _marcaController = TextEditingController();
-  final __fotoController = TextEditingController(); 
+  final _formKey = GlobalKey<FormState>();
+  final _sapatoDAO = SapatoDAO();
+
+  late final TextEditingController _modeloController;
+  late final TextEditingController _materialController;
+  late final TextEditingController _corController;
+  late final TextEditingController _marcaController;
+  late final TextEditingController _fotoUrlController;
+
+  @override
+  void initState() {
+    super.initState();
+    _modeloController = TextEditingController(text: widget.sapato?.modelo);
+    _materialController = TextEditingController(text: widget.sapato?.material);
+    _corController = TextEditingController(text: widget.sapato?.cor);
+    _marcaController = TextEditingController(text: widget.sapato?.marca);
+    _fotoUrlController = TextEditingController(text: widget.sapato?.fotoUrl);
+  }
+
+  @override
+  void dispose() {
+    _modeloController.dispose();
+    _materialController.dispose();
+    _corController.dispose();
+    _marcaController.dispose();
+    _fotoUrlController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _salvar() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final sapatoParaSalvar = DTOSapato(
+        id: widget.sapato?.id,
+        modelo: _modeloController.text,
+        material: _materialController.text,
+        cor: _corController.text,
+        marca: _marcaController.text,
+        fotoUrl: _fotoUrlController.text,
+      );
+
+      try {
+        await _sapatoDAO.salvar(sapatoParaSalvar);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(widget.sapato == null ? 'Sapato salvo com sucesso!' : 'Sapato atualizado com sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.of(context).pop(true); 
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao salvar sapato: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro de Sapatos'),
+        title: Text(widget.sapato == null ? 'Novo Sapato' : 'Editar Sapato'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              const Color.fromARGB(255, 255, 255, 255),
-              Color.fromARGB(255, 240, 174, 226),
-            ],
-          ),
-        ),
-        child: Form(
-          child: Column(
-            children: [
-              const SizedBox(height: 16),
-              CampoFoto(controller: __fotoController),
-              const SizedBox(height: 16),
-              CampoTexto(
-                'Modelo',
-                controller: _modeloController,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Por favor, insira o estilo.';
-                  // }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              CampoTexto(
-                'Material',
-                controller: _materialController,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Por favor, insira o material.';
-                  // }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              CampoTexto(
-                'Cor',
-                controller: _corController,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Por favor, insira a cor.';
-                  // }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              CampoTexto(
-                'Marca',
-                controller: _marcaController,
-                validator: (value) {
-                  // if (value == null || value.isEmpty) {
-                  //   return 'Por favor, insira ua marca.';
-                  // }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: 200,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Cadastrar'),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                CampoTexto(
+                  controller: _modeloController,
+                  texto: 'Modelo',
+                  validator: (value) => (value == null || value.isEmpty) ? 'Campo obrigatório' : null,
+                ),
+                const SizedBox(height: 16),
+                CampoTexto(controller: _materialController, texto: 'Material'),
+                const SizedBox(height: 16),
+                CampoTexto(controller: _corController, texto: 'Cor'),
+                const SizedBox(height: 16),
+                CampoTexto(controller: _marcaController, texto: 'Marca'),
+                const SizedBox(height: 16),
+                CampoTexto(controller: _fotoUrlController, texto: 'URL da Foto'),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: _salvar,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 33, 219),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
-                  onPressed: () {
-                    // ignore: unused_local_variable
-                    DTOSapato sapato = DTOSapato(
-                      modelo: _modeloController.text,
-                      material: _materialController.text,
-                      cor: _corController.text,
-                      marca: _marcaController.text,
-                      fotoUrl: __fotoController.text,
-                    );
-
-                    // Aqui você pode salvar o DTO em uma lista, banco, API, etc.
-                    Navigator.pushNamed(context, '/sapato');
-                  },
+                  child: const Text('Salvar', style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

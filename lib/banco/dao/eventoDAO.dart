@@ -1,7 +1,7 @@
 import 'package:projeto_lary/banco/Conexao.dart';
 import 'package:projeto_lary/banco/dao/lookDAO.dart';
-import 'package:projeto_lary/widgets/evento/DTOEvento.dart';
-import 'package:projeto_lary/widgets/look/DTOLook.dart';
+import 'package:projeto_lary/banco/dto/DTOEvento.dart';
+import 'package:projeto_lary/banco/dto/DTOLook.dart';
 import 'package:sqflite/sqflite.dart';
 
 class EventoDAO {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
-import 'package:projeto_lary/widgets/acessorios/widget_detalhes_acessorios.dart';
+import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_acessorios.dart';
 
 class WidgetAcessorios extends StatefulWidget {
   const WidgetAcessorios({Key? key}) : super(key: key);

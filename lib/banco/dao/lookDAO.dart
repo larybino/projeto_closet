@@ -2,10 +2,10 @@ import 'package:projeto_lary/banco/Conexao.dart';
 import 'package:projeto_lary/banco/dao/RoupaDAO.dart';
 import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
 import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
-import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
-import 'package:projeto_lary/widgets/look/DTOLook.dart';
-import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
-import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
+import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/banco/dto/DTOLook.dart';
+import 'package:projeto_lary/banco/dto/DTORoupas.dart';
+import 'package:projeto_lary/banco/dto/DTOSapato.dart';
 import 'package:sqflite/sqflite.dart';
 
 

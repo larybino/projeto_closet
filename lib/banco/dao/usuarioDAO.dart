@@ -1,6 +1,6 @@
 import 'package:projeto_lary/banco/Conexao.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:projeto_lary/widgets/usuario/DTOUsuario.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 
 
 class UsuarioDAO {

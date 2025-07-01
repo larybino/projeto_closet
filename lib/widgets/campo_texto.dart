@@ -1,23 +1,29 @@
 import 'package:flutter/material.dart';
 
 class CampoTexto extends StatelessWidget {
-  final String rotulo;
-  final String? Function(String?) validator;
-  final TextEditingController? controller; // <-- NOVO
+  final String texto;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator; // Agora é opcional
+  final bool ocultarTexto;
+  final TextInputType? tipoTeclado;
 
-  const CampoTexto(
-    this.rotulo, {
+  const CampoTexto({
     super.key,
-    required this.validator,
-    this.controller, // <-- NOVO
+    required this.texto,
+    this.controller,
+    this.validator, // Agora é opcional
+    this.ocultarTexto = false,
+    this.tipoTeclado,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller, // <-- AQUI
+      controller: controller,
+      obscureText: ocultarTexto,
+      keyboardType: tipoTeclado,
       decoration: InputDecoration(
-        labelText: rotulo,
+        labelText: texto,
         border: const OutlineInputBorder(),
       ),
       validator: validator,

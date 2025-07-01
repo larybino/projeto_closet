@@ -36,7 +36,7 @@ class Aplicativo extends StatelessWidget{
         Rotas.login: (context) =>  WidgetLoginUsuario(), 
         Rotas.cadastro: (context) =>  WidgetCadastroUsuario(),
         Rotas.usuario:(context)=> WidgetUsuario(),
-        Rotas.editarPerfil:(context)=> WidgetEditarPerfil(),
+        // Rotas.editarPerfil:(context)=> WidgetEditarPerfil(),
         Rotas.roupa:(context)=> WidgetRoupa(),
         Rotas.acessorio:(context)=> WidgetAcessorios(),
         Rotas.sapato:(context)=> WidgetSapato(),

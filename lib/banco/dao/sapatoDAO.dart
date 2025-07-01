@@ -1,5 +1,5 @@
 import 'package:projeto_lary/banco/Conexao.dart';
-import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
+import 'package:projeto_lary/banco/dto/DTOSapato.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SapatoDAO {

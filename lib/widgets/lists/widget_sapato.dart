@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
-import 'package:projeto_lary/widgets/sapato/widget_detalhes_sapato.dart';
+import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_sapato.dart';
 
 class WidgetSapato extends StatefulWidget {
   const WidgetSapato({Key? key}) : super(key: key);

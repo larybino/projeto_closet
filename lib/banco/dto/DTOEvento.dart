@@ -1,4 +1,4 @@
-import 'package:projeto_lary/widgets/look/DTOLook.dart';
+import 'package:projeto_lary/banco/dto/DTOLook.dart';
 
 class DTOEvento {
   String? id;

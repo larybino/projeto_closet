@@ -1,15 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
+import '../campo_texto.dart';
 
 class WidgetEditarPerfil extends StatefulWidget {
+  final DTOUsuario usuario;
+
+  const WidgetEditarPerfil({super.key, required this.usuario});
+
   @override
   State<WidgetEditarPerfil> createState() => _WidgetEditarPerfilState();
 }
 
 class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
   final _formKey = GlobalKey<FormState>();
-  final _nomeController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _dataNascController = TextEditingController();
+  final _usuarioDAO = UsuarioDAO();
+
+  late final TextEditingController _nomeController;
+  late final TextEditingController _emailController;
+  late final TextEditingController _fotoUrlController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nomeController = TextEditingController(text: widget.usuario.nome);
+    _emailController = TextEditingController(text: widget.usuario.email);
+    _fotoUrlController = TextEditingController(text: widget.usuario.fotoPerfil);
+  }
+
+  @override
+  void dispose() {
+    _nomeController.dispose();
+    _emailController.dispose();
+    _fotoUrlController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _salvar() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      final usuarioAtualizado = DTOUsuario(
+        id: widget.usuario.id, 
+        nome: _nomeController.text,
+        email: _emailController.text,
+        fotoPerfil: _fotoUrlController.text,
+        senha: widget.usuario.senha, 
+      );
+
+      try {
+        await _usuarioDAO.salvar(usuarioAtualizado);
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Perfil atualizado com sucesso!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+        Navigator.of(context).pop(usuarioAtualizado);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Erro ao atualizar perfil: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,83 +75,57 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const Icon(
-                Icons.person,
-                size: 80,
-                color: Color.fromARGB(255, 243, 33, 219),
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _nomeController,
-                decoration: const InputDecoration(
-                  labelText: 'Nome',
-                  border: OutlineInputBorder(),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: CircleAvatar(
+                    radius: 50,
+                    backgroundImage: _fotoUrlController.text.isNotEmpty
+                        ? NetworkImage(_fotoUrlController.text)
+                        : null,
+                    child: _fotoUrlController.text.isEmpty
+                        ? const Icon(Icons.person, size: 50)
+                        : null,
+                  ),
                 ),
-                validator: (valor) {
-                  if (valor == null || valor.length < 3) {
-                    return 'Nome muito curto';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 24),
+                CampoTexto(
+                  controller: _nomeController,
+                  texto: 'Nome Completo',
+                  validator: (v) => (v == null || v.isEmpty) ? 'Campo obrigatório' : null,
                 ),
-                validator: (valor) {
-                  if (valor == null || !valor.contains('@')) {
-                    return 'Email inválido';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: _dataNascController,
-                decoration: const InputDecoration(
-                  labelText: 'Data de Nascimento',
-                  hintText: 'DD/MM/AAAA',
-                  border: OutlineInputBorder(),
+                const SizedBox(height: 16),
+                CampoTexto(
+                  controller: _emailController,
+                  texto: 'E-mail',
+                  tipoTeclado: TextInputType.emailAddress,
+                  validator: (v) {
+                    if (v == null || v.isEmpty) return 'Campo obrigatório';
+                    if (!v.contains('@')) return 'E-mail inválido';
+                    return null;
+                  },
                 ),
-                validator: (valor) {
-                  if (valor == null || valor.isEmpty) {
-                    return 'Informe sua data de nascimento';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 24),
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  icon: const Icon(Icons.save),
-                  label: const Text('Salvar'),
+                const SizedBox(height: 16),
+                CampoTexto(
+                  controller: _fotoUrlController,
+                  texto: 'URL da Foto de Perfil',
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  onPressed: _salvar,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 243, 33, 219),
                     padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
                   ),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Perfil atualizado!')),
-                      );
-                      Navigator.pushNamed(context, '/usuario');
-                    }
-                  },
+                  child: const Text('Salvar Alterações', style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

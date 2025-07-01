@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
+import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 
 class WidgetDetalhesAcessorios extends StatelessWidget {
   final DTOAcessorios acessorios;

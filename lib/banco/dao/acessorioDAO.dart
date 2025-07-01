@@ -1,5 +1,5 @@
 import 'package:projeto_lary/banco/Conexao.dart';
-import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
+import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 import 'package:sqflite/sqflite.dart';
 
 class AcessorioDAO {
