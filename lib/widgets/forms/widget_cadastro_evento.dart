@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/banco/dto/DTOLook.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
-import 'package:projeto_lary/widgets/evento/DTOEvento.dart';
+import 'package:projeto_lary/banco/dto/DTOEvento.dart';
 
 class WidgetCadastroEvento extends StatefulWidget {
   const WidgetCadastroEvento({super.key});
@@ -10,10 +11,9 @@ class WidgetCadastroEvento extends StatefulWidget {
 }
 
 class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
-  final __localController = TextEditingController();
-  final __horarioController = TextEditingController();
-  final __companhiaController = TextEditingController();
-  final __ocasiaoController = TextEditingController();
+  final __nomeController = TextEditingController();
+  final __dataController = TextEditingController();
+  final __lookController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +38,8 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
             children: [
               const SizedBox(height: 16),
               CampoTexto(
-                'Local',
-                controller: __localController,
+                'Nome',
+                controller: __nomeController,
                 validator: (value) {
                   // if (value == null || value.isEmpty) {
                   //   return 'Por favor, insira um local.';
@@ -49,8 +49,8 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
               ),
               const SizedBox(height: 16),
               CampoTexto(
-                'Horário',
-                controller: __horarioController,
+                'Data',
+                controller: __dataController,
                 validator: (value) {
                   // if (value == null || value.isEmpty) {
                   //   return 'Por favor, insira um horário.';
@@ -60,23 +60,12 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
               ),
               const SizedBox(height: 16),
               CampoTexto(
-                'Companhia',
-                controller: __companhiaController,
+                'Look',
+                controller: __lookController,
                 validator: (value) {
                   // if (value == null || value.isEmpty) {
                   //   return 'Por favor, insira a companhia.';
                   // }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-              CampoTexto(
-                'Ocasião',
-                controller: __ocasiaoController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor, insira a ocasião.';
-                  }
                   return null;
                 },
               ),
@@ -91,10 +80,8 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
                   ),
                   onPressed: () {
                     DTOEvento evento = DTOEvento(
-                      local: __localController.text,
-                      horario: __horarioController.text,
-                      companhia: __companhiaController.text,
-                      ocasiao: __ocasiaoController.text,
+                      nome: __nomeController.text,
+                      data: __dataController.text,
                     );
 
                     Navigator.pushNamed(context, '/evento');

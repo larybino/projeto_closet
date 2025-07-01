@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/widgets/campo_foto.dart';
 import 'package:projeto_lary/widgets/campo_texto.dart';
-import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
 
 class WidgetCadastroRoupa extends StatefulWidget {
   @override

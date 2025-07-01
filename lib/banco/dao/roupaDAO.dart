@@ -1,4 +1,4 @@
-import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
+import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:projeto_lary/banco/Conexao.dart';
 class RoupaDAO {

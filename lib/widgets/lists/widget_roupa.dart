@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/widgets/roupas/widget_detalhes_roupas.dart';
-import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
+import 'package:projeto_lary/banco/dto/DTORoupas.dart';
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_roupas.dart';
 
 class WidgetRoupa extends StatefulWidget {
   const WidgetRoupa({super.key});

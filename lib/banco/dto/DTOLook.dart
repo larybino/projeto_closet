@@ -1,6 +1,6 @@
-import 'package:projeto_lary/widgets/acessorios/DTOAcessorios.dart';
-import 'package:projeto_lary/widgets/roupas/DTORoupas.dart';
-import 'package:projeto_lary/widgets/sapato/DTOSapato.dart';
+import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/banco/dto/DTORoupas.dart';
+import 'package:projeto_lary/banco/dto/DTOSapato.dart';
 
 class DTOLook{
   int? id;
