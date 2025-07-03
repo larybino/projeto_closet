@@ -31,6 +31,8 @@ class ConexaoSQLite {
       path = join(databasesPath, 'projeto_closet.db');
     }
 
+    await databaseFactory.deleteDatabase(path);
+
     return await databaseFactory.openDatabase(
       path,
       options: OpenDatabaseOptions(

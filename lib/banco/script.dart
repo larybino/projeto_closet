@@ -26,7 +26,7 @@ class ScriptSQLite {
     CREATE TABLE sapato (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       modelo TEXT NOT NULL,
-      tipo TEXT,
+      material TEXT,
       cor TEXT,
       marca TEXT,
       url_foto TEXT
@@ -36,8 +36,8 @@ class ScriptSQLite {
   static const String _criarTabelaAcessorio = '''
     CREATE TABLE acessorio (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      nome TEXT NOT NULL,
-      tipo TEXT,
+      estilo TEXT NOT NULL,
+      material TEXT,
       cor TEXT,
       marca TEXT,
       url_foto TEXT
@@ -90,19 +90,23 @@ class ScriptSQLite {
   ];
 
   static const List<String> _insercoesRoupa = [
-    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Calça Jeans', 'Calça', 'Azul', 'Levi''s', 'https://i.imgur.com/8k9MFl7.png')",
-    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Camiseta Branca', 'Camiseta', 'Branca', 'Hering', 'https://i.imgur.com/7pW33pW.png')",
-    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Vestido Preto', 'Vestido', 'Preto', 'Zara', 'https://i.imgur.com/Oin4zGe.png')",
+    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Vestido Floral', 'Vestido', 'Multicolorido', 'Farm', 'https://lojafarm.vteximg.com.br/arquivos/ids/3411470/331280_49147_1-VESTIDO-LONGO-FLORAL-DE-VERAO.jpg?v=638590753519000000')",
+    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Camiseta FARM Reta Paisagem Ipanema Branca', 'Camiseta', 'Branca', 'Farm', 'https://t-static.dafiti.com.br/_GwrkZhGcP0r-qeVdrRqc4YNuk4=/fit-in/430x623/static.dafiti.com.br/p/farm-camiseta-farm-reta-paisagem-ipanema-branca-3413-59553641-1-zoom.jpg')",
+    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Blusa', 'Blusa', 'Cinza', 'Hering', 'https://cdnv2.moovin.com.br/iriacalcados/imagens/produtos/det/blusa-hering-k4wf1asi-verde-militar-927227b8687330d849d6737f1332e755.jpg')",
+    "INSERT INTO roupa (modelo, tipo, cor, marca, url_foto) VALUES ('Vestido de tricô plissado', 'Vestido', 'Vermelho', 'Balmain', 'https://cdn11.bigcommerce.com/s-2w3d34av6x/images/stencil/1280x1280/products/12889/77298/grrly-grrls-crimson-elegance-turtleneck-gown__05612.1734861376.jpg?c=1')",
   ];
 
   static const List<String> _insercoesSapato = [
-    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Tênis Branco', 'Tênis', 'Branco', 'Nike', 'https://i.imgur.com/Kv6q26y.png')",
-    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Salto Alto Preto', 'Salto', 'Preto', 'Arezzo', 'https://i.imgur.com/rD9d6aD.png')",
+    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Scarpin Preto Verniz Salto Alto Fino', 'Verniz', 'Preto', 'Constance', 'https://constance.vtexassets.com/arquivos/ids/2373326-1200-auto?v=638757392018200000&width=1200&height=auto&aspect=true')",
+    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Salto Geométrico', 'Sintético', 'Preto', 'Vizzano', 'https://static.dafiti.com.br/p/vizzano-sand%C3%A1lia-vizzano-salto-geom%C3%A9trico-preta-7306-54537441-1-zoom.jpg?ims=filters:quality(70)')",
+    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Nobuck', 'Preto', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-preto-m40-7536-38203041-1-zoom.jpg?ims=filters:quality(70)')",
+    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Nobuck', 'Branco', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-branco-m40-7535-97792041-1-zoom.jpg?ims=filters:quality(70)')",
+
   ];
 
   static const List<String> _insercoesAcessorio = [
-    "INSERT INTO acessorio (nome, tipo, cor, marca, url_foto) VALUES ('Bolsa de Couro', 'Bolsa', 'Marrom', 'Schutz', 'https://i.imgur.com/4zL9ZmP.png')",
-    "INSERT INTO acessorio (nome, tipo, cor, marca, url_foto) VALUES ('Óculos de Sol', 'Óculos', 'Preto', 'Ray-Ban', 'https://i.imgur.com/O6Gq3bL.png')",
+    "INSERT INTO acessorio (estilo, material, cor, marca, url_foto) VALUES ('Pulseira Life', 'Prata', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/2471327-1600-1600/PL00015208-1.jpg.jpg?v=638804193927070000')",
+    "INSERT INTO acessorio (estilo, material, cor, marca, url_foto) VALUES ('Pulseira Life Infinito', 'Prata', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/930609-1600-1600/Pulseira-Life-Infinito-em-Prata-925-86754_1_set.jpg?v=638745493413630000')",
   ];
   
   // Inserções na tabela Look SEM a coluna id_usuario
