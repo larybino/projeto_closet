@@ -1,7 +1,7 @@
 class DTOSapato {
   String? id;
   String? modelo;
-  String? material;
+  String? tipo;
   String? cor;
   String? marca;
   String? fotoUrl;
@@ -9,7 +9,7 @@ class DTOSapato {
   DTOSapato({
     this.id,
     this.modelo,
-    this.material,
+    this.tipo,
     this.cor,
     this.marca,
     this.fotoUrl,

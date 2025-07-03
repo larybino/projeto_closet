@@ -8,8 +8,8 @@ class AcessorioDAO {
   Map<String, dynamic> _toMap(DTOAcessorios acessorio) {
     return {
       'id': acessorio.id,
-      'estilo': acessorio.estilo,
-      'material': acessorio.material,
+      'modelo': acessorio.modelo,
+      'tipo': acessorio.tipo,
       'cor': acessorio.cor,
       'marca': acessorio.marca,
       'url_foto': acessorio.fotoUrl,
@@ -19,8 +19,8 @@ class AcessorioDAO {
   DTOAcessorios _fromMap(Map<String, dynamic> map) {
     return DTOAcessorios(
       id: map['id']?.toString(),
-      estilo: map['estilo'],
-      material: map['material'],
+      modelo: map['modelo'],
+      tipo: map['tipo'],
       cor: map['cor'],
       marca: map['marca'],
       fotoUrl: map['url_foto'],
@@ -46,7 +46,7 @@ class AcessorioDAO {
 
   Future<List<DTOAcessorios>> listar() async {
     var database = await db;
-    final List<Map<String, dynamic>> maps = await database.query('acessorio', orderBy: 'estilo');
+    final List<Map<String, dynamic>> maps = await database.query('acessorio', orderBy: 'modelo');
     return List.generate(maps.length, (i) {
       return _fromMap(maps[i]);
     });

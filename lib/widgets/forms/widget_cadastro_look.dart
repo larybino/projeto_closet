@@ -146,7 +146,7 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
                   title: 'Acessórios',
                   future: _acessoriosFuture,
                   selectedItems: _acessoriosSelecionados,
-                  itemBuilder: (acessorio) => acessorio.estilo ?? 'Sem nome',
+                  itemBuilder: (acessorio) => acessorio.modelo ?? 'Sem nome',
                 ),
                 const SizedBox(height: 32),
 

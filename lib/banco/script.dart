@@ -26,7 +26,7 @@ class ScriptSQLite {
     CREATE TABLE sapato (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       modelo TEXT NOT NULL,
-      material TEXT,
+      tipo TEXT,
       cor TEXT,
       marca TEXT,
       url_foto TEXT
@@ -36,22 +36,21 @@ class ScriptSQLite {
   static const String _criarTabelaAcessorio = '''
     CREATE TABLE acessorio (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
-      estilo TEXT NOT NULL,
-      material TEXT,
+      modelo TEXT NOT NULL,
+      tipo TEXT,
       cor TEXT,
       marca TEXT,
       url_foto TEXT
     )
   ''';
 
-  // Tabela Look SEM a coluna id_usuario
   static const String _criarTabelaLook = '''
     CREATE TABLE look (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       nome TEXT NOT NULL
     )
   ''';
-  
+
   static const String _criarTabelaLookItem = '''
     CREATE TABLE look_item (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -72,7 +71,6 @@ class ScriptSQLite {
     )
   ''';
 
-  // Variável pública com todos os comandos de criação
   static const List<String> comandosCriarTabelas = [
     _criarTabelaUsuario,
     _criarTabelaRoupa,
@@ -97,27 +95,24 @@ class ScriptSQLite {
   ];
 
   static const List<String> _insercoesSapato = [
-    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Scarpin Preto Verniz Salto Alto Fino', 'Verniz', 'Preto', 'Constance', 'https://constance.vtexassets.com/arquivos/ids/2373326-1200-auto?v=638757392018200000&width=1200&height=auto&aspect=true')",
-    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Salto Geométrico', 'Sintético', 'Preto', 'Vizzano', 'https://static.dafiti.com.br/p/vizzano-sand%C3%A1lia-vizzano-salto-geom%C3%A9trico-preta-7306-54537441-1-zoom.jpg?ims=filters:quality(70)')",
-    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Nobuck', 'Preto', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-preto-m40-7536-38203041-1-zoom.jpg?ims=filters:quality(70)')",
-    "INSERT INTO sapato (modelo, material, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Nobuck', 'Branco', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-branco-m40-7535-97792041-1-zoom.jpg?ims=filters:quality(70)')",
-
+    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Scarpin Preto Verniz Salto Alto Fino', 'Salto', 'Preto', 'Constance', 'https://constance.vtexassets.com/arquivos/ids/2373326-1200-auto?v=638757392018200000&width=1200&height=auto&aspect=true')",
+    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Salto Geométrico', 'Salto', 'Preto', 'Vizzano', 'https://static.dafiti.com.br/p/vizzano-sand%C3%A1lia-vizzano-salto-geom%C3%A9trico-preta-7306-54537441-1-zoom.jpg?ims=filters:quality(70)')",
+    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Salto', 'Preto', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-preto-m40-7536-38203041-1-zoom.jpg?ims=filters:quality(70)')",
+    "INSERT INTO sapato (modelo, tipo, cor, marca, url_foto) VALUES ('Sandália Meia Pata', 'Salto', 'Branco', 'Mordapé', 'https://static.dafiti.com.br/p/modarpe-sapato-boneca-modarpe-meia-pata-salto-alto-branco-m40-7535-97792041-1-zoom.jpg?ims=filters:quality(70)')",
   ];
 
   static const List<String> _insercoesAcessorio = [
-    "INSERT INTO acessorio (estilo, material, cor, marca, url_foto) VALUES ('Pulseira Life', 'Prata', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/2471327-1600-1600/PL00015208-1.jpg.jpg?v=638804193927070000')",
-    "INSERT INTO acessorio (estilo, material, cor, marca, url_foto) VALUES ('Pulseira Life Infinito', 'Prata', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/930609-1600-1600/Pulseira-Life-Infinito-em-Prata-925-86754_1_set.jpg?v=638745493413630000')",
+    "INSERT INTO acessorio (modelo, tipo, cor, marca, url_foto) VALUES ('Pulseira Life', 'Pulseira', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/2471327-1600-1600/PL00015208-1.jpg.jpg?v=638804193927070000')",
+    "INSERT INTO acessorio (modelo, tipo, cor, marca, url_foto) VALUES ('Pulseira Life Infinito', 'Pulseira', 'Prata', 'Vivara', 'https://lojavivara.vtexassets.com/arquivos/ids/930609-1600-1600/Pulseira-Life-Infinito-em-Prata-925-86754_1_set.jpg?v=638745493413630000')",
   ];
-  
-  // Inserções na tabela Look SEM a coluna id_usuario
+
   static const List<String> _insercoesLook = [
-    "INSERT INTO look (nome) VALUES ('Look Casual')",
     "INSERT INTO look (nome) VALUES ('Look de Festa')",
+    "INSERT INTO look (nome) VALUES ('Look Casual')",
   ];
 
   static const List<String> _insercoesLookItem = [
     "INSERT INTO look_item (id_look, id_item, tipo_item) VALUES (1, 1, 'roupa')",
-    "INSERT INTO look_item (id_look, id_item, tipo_item) VALUES (1, 2, 'roupa')",
     "INSERT INTO look_item (id_look, id_item, tipo_item) VALUES (1, 1, 'sapato')",
     "INSERT INTO look_item (id_look, id_item, tipo_item) VALUES (1, 2, 'acessorio')",
     "INSERT INTO look_item (id_look, id_item, tipo_item) VALUES (2, 3, 'roupa')",
@@ -126,8 +121,8 @@ class ScriptSQLite {
   ];
 
   static const List<String> _insercoesEvento = [
-    "INSERT INTO evento (nome, data, id_look) VALUES ('Aniversário da Maria', '2025-07-15', 2)",
-    "INSERT INTO evento (nome, data, id_look) VALUES ('Passeio no Parque', '2025-08-01', 1)",
+    "INSERT INTO evento (nome, data, id_look) VALUES ('Aniversário', '2025-07-15', 2)",
+    "INSERT INTO evento (nome, data, id_look) VALUES ('Shopping', '2025-08-01', 1)",
   ];
 
   static const List<List<String>> comandosInsercoes = [

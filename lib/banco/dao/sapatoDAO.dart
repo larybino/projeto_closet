@@ -9,7 +9,7 @@ class SapatoDAO {
     return {
       'id': sapato.id,
       'modelo': sapato.modelo,
-      'material': sapato.material,
+      'tipo': sapato.tipo,
       'cor': sapato.cor,
       'marca': sapato.marca,
       'url_foto': sapato.fotoUrl,
@@ -20,7 +20,7 @@ class SapatoDAO {
     return DTOSapato(
       id: map['id']?.toString(),
       modelo: map['modelo'],
-      material: map['material'],
+      tipo: map['tipo'],
       cor: map['cor'],
       marca: map['marca'],
       fotoUrl: map['url_foto'],

@@ -17,7 +17,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
   final _sapatoDAO = SapatoDAO();
 
   late final TextEditingController _modeloController;
-  late final TextEditingController _materialController;
+  late final TextEditingController _tipoController;
   late final TextEditingController _corController;
   late final TextEditingController _marcaController;
   late final TextEditingController _fotoUrlController;
@@ -26,7 +26,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
   void initState() {
     super.initState();
     _modeloController = TextEditingController(text: widget.sapato?.modelo);
-    _materialController = TextEditingController(text: widget.sapato?.material);
+    _tipoController = TextEditingController(text: widget.sapato?.tipo);
     _corController = TextEditingController(text: widget.sapato?.cor);
     _marcaController = TextEditingController(text: widget.sapato?.marca);
     _fotoUrlController = TextEditingController(text: widget.sapato?.fotoUrl);
@@ -35,7 +35,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
   @override
   void dispose() {
     _modeloController.dispose();
-    _materialController.dispose();
+    _tipoController.dispose();
     _corController.dispose();
     _marcaController.dispose();
     _fotoUrlController.dispose();
@@ -47,7 +47,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
       final sapatoParaSalvar = DTOSapato(
         id: widget.sapato?.id,
         modelo: _modeloController.text,
-        material: _materialController.text,
+        tipo: _tipoController.text,
         cor: _corController.text,
         marca: _marcaController.text,
         fotoUrl: _fotoUrlController.text,
@@ -108,7 +108,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
                   validator: (value) => (value == null || value.isEmpty) ? 'Campo obrigatório' : null,
                 ),
                 const SizedBox(height: 16),
-                CampoTexto(controller: _materialController, texto: 'Material'),
+                CampoTexto(controller: _tipoController, texto: 'Tipo'),
                 const SizedBox(height: 16),
                 CampoTexto(controller: _corController, texto: 'Cor'),
                 const SizedBox(height: 16),

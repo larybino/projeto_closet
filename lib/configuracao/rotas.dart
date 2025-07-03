@@ -13,6 +13,7 @@ import 'package:projeto_lary/widgets/forms/widget_cadastro_usuario.dart';
 import 'package:projeto_lary/widgets/forms/widget_editar_perfil.dart';
 import 'package:projeto_lary/widgets/forms/widget_login_usuario.dart';
 import 'package:projeto_lary/widgets/lists/widget_acessorios.dart';
+import 'package:projeto_lary/widgets/lists/widget_evento.dart';
 import 'package:projeto_lary/widgets/lists/widget_look.dart';
 import 'package:projeto_lary/widgets/lists/widget_roupa.dart';
 import 'package:projeto_lary/widgets/lists/widget_sapato.dart';
@@ -45,6 +46,7 @@ class Rotas {
   static const String looks = '/looks';
   static const String cadastrarLook = '/cadastrar-look';
   
+  static const String eventos = '/eventos';
   static const String cadastrarEvento = '/cadastrar-evento';
 
   static Route<dynamic> gerarRota(RouteSettings settings) {
@@ -110,9 +112,13 @@ class Rotas {
         return MaterialPageRoute(builder: (_) => WidgetCadastroLook(look: look));
       case cadastrarEvento:
         return MaterialPageRoute(builder: (_) => const WidgetCadastroEvento());
-
+      case eventos:
+        return MaterialPageRoute(builder: (_) => const WidgetEventos());
       default:
         return _erroRota(mensagem: 'Rota ${settings.name} não encontrada.');
+    
+    
+    
     }
   }
 

@@ -1,63 +1,72 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/widgets/forms/widget_cadastro_acessorios.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_acessorios.dart';
 
+
 class WidgetAcessorios extends StatefulWidget {
-  const WidgetAcessorios({Key? key}) : super(key: key);
+  const WidgetAcessorios({super.key});
 
   @override
-  _WidgetAcessoriosState createState() => _WidgetAcessoriosState();
+  State<WidgetAcessorios> createState() => _WidgetAcessoriosState();
 }
 
 class _WidgetAcessoriosState extends State<WidgetAcessorios> {
-  final List<DTOAcessorios> acessorios = [
-    DTOAcessorios(
-      estilo: 'Pulseira Life',
-      material: 'Prata',
-      cor: 'Prata',
-      marca: 'Vivara',
-      fotoUrl:
-          'https://lojavivara.vtexassets.com/arquivos/ids/2471327-1600-1600/PL00015208-1.jpg.jpg?v=638804193927070000',
-    ),
-    DTOAcessorios(
-      estilo: 'Bolsa Noelle Transversal Tri Compartment Caramelo',
-      material: ' Poliuretano',
-      cor: 'Caramelo',
-      marca: 'Guess',
-      fotoUrl:
-          'https://guessbr.vtexassets.com/arquivos/ids/216635-1413-2048?v=638755734391400000&width=1413&height=2048&aspect=true',
-    ),
-    DTOAcessorios(
-      estilo: 'Pulseira Life infinito',
-      material: 'Prata',
-      cor: 'Prata',
-      marca: 'Vivara',
-      fotoUrl:
-          'https://lojavivara.vtexassets.com/arquivos/ids/930609-1600-1600/Pulseira-Life-Infinito-em-Prata-925-86754_1_set.jpg?v=638745493413630000',
-    ),
-  ];
+  final _acessorioDAO = AcessorioDAO();
+  late Future<List<DTOAcessorios>> _acessoriosFuture;
 
-   void alterar(DTOAcessorios acessorio){
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Alterar: ${acessorio.estilo} - ${acessorio.marca}')),
-    );
+  @override
+  void initState() {
+    super.initState();
+    _atualizarListaAcessorios();
   }
 
-  void excluir(DTOAcessorios acessorio){
+  void _atualizarListaAcessorios() {
+    setState(() {
+      _acessoriosFuture = _acessorioDAO.listar();
+    });
+  }
+
+  void _adicionarAcessorio() async {
+    final resultado = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => const WidgetCadastroAcessorios()),
+    );
+    if (resultado == true) {
+      _atualizarListaAcessorios();
+    }
+  }
+
+  void _editarAcessorio(DTOAcessorios acessorio) async {
+    final resultado = await Navigator.push<bool>(
+      context,
+      MaterialPageRoute(builder: (context) => WidgetCadastroAcessorios(acessorio: acessorio)),
+    );
+    if (resultado == true) {
+      _atualizarListaAcessorios();
+    }
+  }
+
+  void _excluirAcessorio(DTOAcessorios acessorio) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Confirmar exclusão'),
-        content: Text('Deseja excluir "${acessorio.estilo}"?'),
+        title: const Text('Confirmar Exclusão'),
+        content: Text('Tem a certeza de que deseja excluir o acessório "${acessorio.modelo}"?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancelar')),
           TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Excluído: ${acessorio.estilo}')),
-              );
-              // Se fosse uma lista dinâmica, removeria aqui
+            onPressed: () => Navigator.pop(ctx),
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () async {
+              final id = int.tryParse(acessorio.id ?? '');
+              if (id != null) {
+                await _acessorioDAO.excluir(id);
+                Navigator.pop(ctx);
+                _atualizarListaAcessorios();
+              }
             },
             child: const Text('Excluir', style: TextStyle(color: Colors.red)),
           ),
@@ -70,104 +79,104 @@ class _WidgetAcessoriosState extends State<WidgetAcessorios> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Meus acessorios'),
+        title: const Text('Meus Acessórios'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: GridView.builder(
-          itemCount: acessorios.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            crossAxisSpacing: 8,
-            mainAxisSpacing: 8,
-            childAspectRatio: 0.50,
+      body: Container(
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
           ),
-          itemBuilder: (context, index) {
-            final acessorio = acessorios[index];
-            return GestureDetector(
-              onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return WidgetDetalhesAcessorios(acessorios: acessorio);
-                  },
-                );
-              },
+        ),
+        child: FutureBuilder<List<DTOAcessorios>>(
+          future: _acessoriosFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(child: Text('Erro ao carregar acessórios: ${snapshot.error}'));
+            }
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text('Nenhum acessório cadastrado.'));
+            }
 
-              child: Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                elevation: 2,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Expanded(
-                      child: ClipRRect(
-                        borderRadius: const BorderRadius.vertical(
-                          top: Radius.circular(16),
-                        ),
-                        child:
-                            acessorio.fotoUrl != null
-                                ? Image.network(
+            final acessorios = snapshot.data!;
+            return GridView.builder(
+              padding: const EdgeInsets.all(12.0),
+              itemCount: acessorios.length,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+                childAspectRatio: 0.7,
+              ),
+              itemBuilder: (context, index) {
+                final acessorio = acessorios[index];
+                return GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                      context: context,
+                      isScrollControlled: true,
+                      builder: (context) => WidgetDetalhesAcessorios(acessorios: acessorio),
+                    );
+                  },
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Expanded(
+                          child: (acessorio.fotoUrl != null && acessorio.fotoUrl!.isNotEmpty)
+                              ? Image.network(
                                   acessorio.fotoUrl!,
                                   fit: BoxFit.cover,
+                                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.error),
                                 )
-                                : const Icon(Icons.image_not_supported),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            acessorio.estilo ?? 'Estilo não disponível',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                              : const Icon(Icons.watch, size: 80, color: Colors.grey),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            acessorio.modelo ?? 'Sem nome',
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: const Icon(Icons.edit, color: Colors.blue),
+                              onPressed: () => _editarAcessorio(acessorio),
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          Text(
-                            acessorio.marca ?? 'Marca não disponível',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey,
+                            IconButton(
+                              icon: const Icon(Icons.delete, color: Colors.red),
+                              onPressed: () => _excluirAcessorio(acessorio),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        )
+                      ],
                     ),
-                     ButtonBar(
-                        alignment: MainAxisAlignment.end,
-                        children: [
-                          IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.orange),
-                            onPressed: () => alterar(acessorio),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.red),
-                            onPressed: () => excluir(acessorio),
-                          ),
-                        ],  
-                    ),
-                  ],
-                ),
-              ),
+                  ),
+                );
+              },
             );
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(context, '/cadastrar_acessorios');
-        },
+        onPressed: _adicionarAcessorio,
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
-        tooltip: 'Adicionar nova acessorio',
-        child: const Icon(Icons.add),
+        tooltip: 'Adicionar novo acessório',
+        child: const Icon(Icons.add, color: Colors.white),
       ),
     );
   }

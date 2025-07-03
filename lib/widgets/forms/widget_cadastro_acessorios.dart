@@ -16,8 +16,8 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
   final _formKey = GlobalKey<FormState>();
   final _acessorioDAO = AcessorioDAO();
 
-  late final TextEditingController _estiloController;
-  late final TextEditingController _materialController;
+  late final TextEditingController _modeloController;
+  late final TextEditingController _tipoController;
   late final TextEditingController _corController;
   late final TextEditingController _marcaController;
   late final TextEditingController _fotoUrlController;
@@ -25,8 +25,8 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
   @override
   void initState() {
     super.initState();
-    _estiloController = TextEditingController(text: widget.acessorio?.estilo);
-    _materialController = TextEditingController(text: widget.acessorio?.material);
+    _modeloController = TextEditingController(text: widget.acessorio?.modelo);
+    _tipoController = TextEditingController(text: widget.acessorio?.tipo);
     _corController = TextEditingController(text: widget.acessorio?.cor);
     _marcaController = TextEditingController(text: widget.acessorio?.marca);
     _fotoUrlController = TextEditingController(text: widget.acessorio?.fotoUrl);
@@ -34,8 +34,8 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
 
   @override
   void dispose() {
-    _estiloController.dispose();
-    _materialController.dispose();
+    _modeloController.dispose();
+    _tipoController.dispose();
     _corController.dispose();
     _marcaController.dispose();
     _fotoUrlController.dispose();
@@ -46,8 +46,8 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
     if (_formKey.currentState?.validate() ?? false) {
       final acessorioParaSalvar = DTOAcessorios(
         id: widget.acessorio?.id,
-        estilo: _estiloController.text,
-        material: _materialController.text,
+        modelo: _modeloController.text,
+        tipo: _tipoController.text,
         cor: _corController.text,
         marca: _marcaController.text,
         fotoUrl: _fotoUrlController.text,
@@ -102,12 +102,12 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CampoTexto(
-                  controller: _estiloController,
-                  texto: 'Estilo',
+                  controller: _modeloController,
+                  texto: 'modelo',
                   validator: (value) => (value == null || value.isEmpty) ? 'Campo obrigatório' : null,
                 ),
                 const SizedBox(height: 16),
-                CampoTexto(controller: _materialController, texto: 'Material'),
+                CampoTexto(controller: _tipoController, texto: 'Tipo'),
                 const SizedBox(height: 16),
                 CampoTexto(controller: _corController, texto: 'Cor'),
                 const SizedBox(height: 16),

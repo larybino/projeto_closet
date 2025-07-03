@@ -1,15 +1,15 @@
 class DTOAcessorios {
   String? id;
-  String? estilo;
-  String? material;
+  String? modelo;
+  String? tipo;
   String? cor;
   String? marca;
   String? fotoUrl;
 
   DTOAcessorios({
     this.id,
-    this.estilo,
-    this.material,
+    this.modelo,
+    this.tipo,
     this.cor,
     this.marca,
     this.fotoUrl,
