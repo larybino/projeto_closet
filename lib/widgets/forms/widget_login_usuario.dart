@@ -37,7 +37,9 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
             SnackBar(
               content: Text('Bem-vindo(a), ${usuario.nome}!'),
               backgroundColor: Colors.green,
+              
             ),
+            
           );
           Navigator.of(context).pushNamedAndRemoveUntil('/menu', (route) => false, arguments: usuario);
         } else {

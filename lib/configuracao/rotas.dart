@@ -12,6 +12,7 @@ import 'package:projeto_lary/widgets/forms/widget_cadastro_sapato.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_usuario.dart';
 import 'package:projeto_lary/widgets/forms/widget_editar_perfil.dart';
 import 'package:projeto_lary/widgets/forms/widget_login_usuario.dart';
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_look.dart';
 import 'package:projeto_lary/widgets/lists/widget_acessorios.dart';
 import 'package:projeto_lary/widgets/lists/widget_evento.dart';
 import 'package:projeto_lary/widgets/lists/widget_look.dart';
@@ -45,6 +46,7 @@ class Rotas {
 
   static const String looks = '/looks';
   static const String cadastrarLook = '/cadastrar-look';
+  static const String detalhesLooks = '/detalhes-look';
   
   static const String eventos = '/eventos';
   static const String cadastrarEvento = '/cadastrar-evento';
@@ -101,7 +103,7 @@ class Rotas {
         return MaterialPageRoute(builder: (_) => WidgetCadastroAcessorios(acessorio: acessorio));
       case detalhesAcessorios:
         if (args is DTOAcessorios) {
-          return MaterialPageRoute(builder: (_) => WidgetDetalhesAcessorios(acessorios: args));
+          return MaterialPageRoute(builder: (_) => WidgetDetalhesAcessorios(acessorio: args));
         }
         return _erroRota();
 
@@ -110,6 +112,12 @@ class Rotas {
       case cadastrarLook:
         final look = args is DTOLook ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroLook(look: look));
+      case detalhesLooks:
+        if (args is DTOLook) {
+          return MaterialPageRoute(builder: (_) => WidgetDetalhesLook(look: args));
+        }
+        return _erroRota();
+      
       case cadastrarEvento:
         return MaterialPageRoute(builder: (_) => const WidgetCadastroEvento());
       case eventos:

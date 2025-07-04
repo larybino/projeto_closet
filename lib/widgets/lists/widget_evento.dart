@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_lary/banco/dao/eventoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOEvento.dart';
-import 'package:projeto_lary/configuracao/rotas.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_evento.dart';
 
 class WidgetEventos extends StatefulWidget {
@@ -22,26 +21,22 @@ class _WidgetEventosState extends State<WidgetEventos> {
     _atualizarListaEventos();
   }
 
-  /// Recarrega a lista de eventos do banco de dados.
   void _atualizarListaEventos() {
     setState(() {
       _eventosFuture = _eventoDAO.listar();
     });
   }
 
-  /// Navega para a tela de cadastro para adicionar um novo evento.
   void _adicionarEvento() async {
     final resultado = await Navigator.push<bool>(
       context,
       MaterialPageRoute(builder: (context) => const WidgetCadastroEvento()),
     );
-    // Se a tela de cadastro retornou 'true', atualiza a lista.
     if (resultado == true) {
       _atualizarListaEventos();
     }
   }
 
-  /// Navega para a tela de cadastro para editar um evento existente.
   void _editarEvento(DTOEvento evento) async {
     final resultado = await Navigator.push<bool>(
       context,
@@ -52,7 +47,6 @@ class _WidgetEventosState extends State<WidgetEventos> {
     }
   }
 
-  /// Exclui um evento após confirmação.
   void _excluirEvento(DTOEvento evento) {
     showDialog(
       context: context,
@@ -93,7 +87,6 @@ class _WidgetEventosState extends State<WidgetEventos> {
     );
   }
 
-  /// Formata a data para um formato legível.
   String _formatarData(String? dataIso) {
     if (dataIso == null || dataIso.isEmpty) {
       return 'Sem data';

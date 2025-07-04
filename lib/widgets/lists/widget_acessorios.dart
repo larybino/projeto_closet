@@ -125,7 +125,7 @@ class _WidgetAcessoriosState extends State<WidgetAcessorios> {
                     showModalBottomSheet(
                       context: context,
                       isScrollControlled: true,
-                      builder: (context) => WidgetDetalhesAcessorios(acessorios: acessorio),
+                      builder: (context) => WidgetDetalhesAcessorios(acessorio: acessorio),
                     );
                   },
                   child: Card(

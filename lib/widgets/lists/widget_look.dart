@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/lookDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_look.dart';
-
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_look.dart';
 
 class WidgetLook extends StatefulWidget {
   const WidgetLook({super.key});
@@ -73,6 +73,17 @@ class _WidgetLookState extends State<WidgetLook> {
     );
   }
 
+  void _mostrarDetalhes(DTOLook look) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, 
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return WidgetDetalhesLook(look: look);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,66 +123,70 @@ class _WidgetLookState extends State<WidgetLook> {
               itemCount: looks.length,
               itemBuilder: (context, index) {
                 final look = looks[index];
-                // Combina todas as imagens dos itens do look
+                
                 final allImageUrls = [
                   ...look.roupas.map((r) => r.fotoUrl),
                   ...look.sapatos.map((s) => s.fotoUrl),
                   ...look.acessorios.map((a) => a.fotoUrl),
                 ].where((url) => url != null && url.isNotEmpty).toList();
-
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                look.nome ?? 'Look sem nome',
-                                style: Theme.of(context).textTheme.titleLarge,
+                
+                return GestureDetector(
+                  onTap: () => _mostrarDetalhes(look),
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  look.nome ?? 'Look sem nome',
+                                  style: Theme.of(context).textTheme.titleLarge,
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.edit, color: Colors.blue),
-                              onPressed: () => _editarLook(look),
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.red),
-                              onPressed: () => _excluirLook(look),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 12),
-                        if (allImageUrls.isNotEmpty)
-                          SizedBox(
-                            height: 80,
-                            child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: allImageUrls.length,
-                              itemBuilder: (ctx, imgIndex) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    child: Image.network(
-                                      allImageUrls[imgIndex]!,
-                                      width: 80,
-                                      height: 80,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (c, e, s) => const Icon(Icons.error),
+                              IconButton(
+                                icon: const Icon(Icons.edit, color: Colors.blue),
+                                onPressed: () => _editarLook(look),
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.delete, color: Colors.red),
+                                onPressed: () => _excluirLook(look),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 12),
+                          if (allImageUrls.isNotEmpty)
+                            SizedBox(
+                              height: 80,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: allImageUrls.length,
+                                itemBuilder: (ctx, imgIndex) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 8.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      child: Image.network(
+                                        allImageUrls[imgIndex]!,
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (c, e, s) => const Icon(Icons.error),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
-                            ),
-                          )
-                        else
-                          const Text('Este look não possui itens com imagem.'),
-                      ],
+                                  );
+                                },
+                              ),
+                            )
+                          else
+                            const Text('Este look não possui itens com imagem.'),
+                        ],
+                      ),
                     ),
                   ),
                 );
