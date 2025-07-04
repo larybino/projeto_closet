@@ -18,6 +18,7 @@ import 'package:projeto_lary/widgets/lists/widget_evento.dart';
 import 'package:projeto_lary/widgets/lists/widget_look.dart';
 import 'package:projeto_lary/widgets/lists/widget_roupa.dart';
 import 'package:projeto_lary/widgets/lists/widget_sapato.dart';
+import 'package:projeto_lary/widgets/lists/widget_usuario.dart';
 import 'package:projeto_lary/widgets/widget_menu.dart';
 import 'package:projeto_lary/widgets/widget_telaInicial.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_acessorios.dart';
@@ -30,6 +31,7 @@ class Rotas {
   static const String login = '/login';
   static const String menu = '/menu';
   static const String cadastro = '/cadastro';
+  static const String usuario = '/usuario';
   static const String editarPerfil = '/editar-perfil';
   
   static const String roupas = '/roupas';
@@ -68,6 +70,12 @@ class Rotas {
         }
         return _erroRota(mensagem: 'Usuário não fornecido para o menu.');
 
+
+      case usuario:
+          if (args is DTOUsuario) {
+              return MaterialPageRoute(builder: (_) => WidgetUsuario(usuario: args));
+          }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de perfil.');
       case editarPerfil:
         if (args is DTOUsuario) {
           return MaterialPageRoute(builder: (_) => WidgetEditarPerfil(usuario: args));

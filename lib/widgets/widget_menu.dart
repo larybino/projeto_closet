@@ -4,7 +4,6 @@ import 'package:projeto_lary/configuracao/rotas.dart';
 import 'package:projeto_lary/widgets/forms/widget_editar_perfil.dart';
 
 class WidgetMenu extends StatefulWidget {
-  // Este widget agora recebe o usuário que fez login
   final DTOUsuario usuario;
 
   const WidgetMenu({super.key, required this.usuario});
@@ -14,7 +13,6 @@ class WidgetMenu extends StatefulWidget {
 }
 
 class _WidgetMenuState extends State<WidgetMenu> {
-  // Guarda o estado do usuário para que possa ser atualizado (ex: após editar o perfil)
   late DTOUsuario _usuarioAtual;
 
   @override
@@ -23,7 +21,6 @@ class _WidgetMenuState extends State<WidgetMenu> {
     _usuarioAtual = widget.usuario;
   }
 
-  /// Função auxiliar para criar os itens do menu de forma consistente
   Widget _criarItemMenu({
     required IconData icone,
     required String rotulo,
@@ -33,9 +30,7 @@ class _WidgetMenuState extends State<WidgetMenu> {
       leading: Icon(icone, color: const Color.fromARGB(255, 243, 33, 219)),
       title: Text(rotulo, style: const TextStyle(fontSize: 16)),
       onTap: () {
-        // Fecha o menu lateral antes de navegar
         Navigator.pop(context);
-        // Executa a ação de navegação
         aoPressionar();
       },
     );
@@ -52,67 +47,70 @@ class _WidgetMenuState extends State<WidgetMenu> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            // Cabeçalho do menu que mostra os dados do usuário
             UserAccountsDrawerHeader(
               accountName: Text(
                 _usuarioAtual.nome ?? 'Usuário',
                 style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               accountEmail: Text(_usuarioAtual.email ?? ''),
-              currentAccountPicture: CircleAvatar(
-                backgroundImage: (_usuarioAtual.fotoPerfil != null && _usuarioAtual.fotoPerfil!.isNotEmpty)
-                    ? NetworkImage(_usuarioAtual.fotoPerfil!)
-                    : null,
-                backgroundColor: Colors.white,
-                child: (_usuarioAtual.fotoPerfil == null || _usuarioAtual.fotoPerfil!.isEmpty)
-                    ? Text(
-                        _usuarioAtual.nome?.substring(0, 1).toUpperCase() ?? 'U',
-                        style: const TextStyle(fontSize: 40.0, color: Color.fromARGB(255, 243, 33, 219)),
-                      )
-                    : null,
+              currentAccountPicture: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, Rotas.usuario, arguments: _usuarioAtual);
+                },
+                child: CircleAvatar(
+                  backgroundImage: (_usuarioAtual.fotoPerfil != null && _usuarioAtual.fotoPerfil!.isNotEmpty)
+                      ? NetworkImage(_usuarioAtual.fotoPerfil!)
+                      : null,
+                  backgroundColor: Colors.white,
+                  child: (_usuarioAtual.fotoPerfil == null || _usuarioAtual.fotoPerfil!.isEmpty)
+                      ? Text(
+                          _usuarioAtual.nome?.substring(0, 1).toUpperCase() ?? 'U',
+                          style: const TextStyle(fontSize: 40.0, color: Color.fromARGB(255, 243, 33, 219)),
+                        )
+                      : null,
+                ),
               ),
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 243, 33, 219),
               ),
             ),
             _criarItemMenu(
-              icone: Icons.checkroom, // Ícone para roupas
+              icone: Icons.checkroom, 
               rotulo: 'Minhas Roupas',
               aoPressionar: () => Navigator.pushNamed(context, Rotas.roupas),
             ),
             _criarItemMenu(
-              icone: Icons.ice_skating, // Ícone para sapatos
+              icone: Icons.ice_skating, 
               rotulo: 'Meus Sapatos',
               aoPressionar: () => Navigator.pushNamed(context, Rotas.sapatos),
             ),
             _criarItemMenu(
-              icone: Icons.watch, // Ícone para acessórios
+              icone: Icons.watch, 
               rotulo: 'Meus Acessórios',
               aoPressionar: () => Navigator.pushNamed(context, Rotas.acessorios),
             ),
             _criarItemMenu(
-              icone: Icons.style, // Ícone para looks
+              icone: Icons.style, 
               rotulo: 'Meus Looks',
               aoPressionar: () => Navigator.pushNamed(context, Rotas.looks),
             ),
             _criarItemMenu(
-              icone: Icons.event, // Ícone para eventos
+              icone: Icons.event, 
               rotulo: 'Meus Eventos',
               aoPressionar: () => Navigator.pushNamed(context, '/eventos'), // Crie a rota se necessário
             ),
-            const Divider(), // Divisor para separar as seções
+            const Divider(),
             _criarItemMenu(
               icone: Icons.person,
               rotulo: 'Editar Perfil',
               aoPressionar: () async {
-                // Navega para a tela de edição e aguarda um resultado
                 final usuarioAtualizado = await Navigator.push<DTOUsuario>(
                   context,
                   MaterialPageRoute(
                     builder: (context) => WidgetEditarPerfil(usuario: _usuarioAtual),
                   ),
                 );
-                // Se o perfil foi atualizado, atualiza o estado para refletir no menu
                 if (usuarioAtualizado != null) {
                   setState(() {
                     _usuarioAtual = usuarioAtualizado;
@@ -124,7 +122,6 @@ class _WidgetMenuState extends State<WidgetMenu> {
               icone: Icons.logout,
               rotulo: 'Sair',
               aoPressionar: () {
-                // Volta para a tela de login e remove todas as outras telas da pilha
                 Navigator.pushNamedAndRemoveUntil(context, Rotas.login, (route) => false);
               },
             ),
