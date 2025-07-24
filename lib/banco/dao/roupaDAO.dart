@@ -6,7 +6,7 @@ class RoupaDAO {
 
   Map<String, dynamic> _toMap(DTORoupas roupa) {
     return {
-      'id': roupa.id,
+      'id': roupa.id != null ? int.tryParse(roupa.id!) : null,
       'modelo': roupa.modelo,
       'tipo': roupa.tipo,
       'cor': roupa.cor,
@@ -24,6 +24,19 @@ class RoupaDAO {
       marca: map['marca'],
       fotoUrl: map['url_foto'],
     );
+  }
+
+  Future<DTORoupas?> buscarPorId(int id) async {
+    var database = await db;
+    final List<Map<String, dynamic>> maps = await database.query(
+      'roupa',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+    if (maps.isNotEmpty) {
+      return _fromMap(maps.first); 
+    }
+    return null;
   }
 
   Future<int> salvar(DTORoupas roupa) async {

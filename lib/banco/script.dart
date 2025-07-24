@@ -71,6 +71,25 @@ class ScriptSQLite {
     )
   ''';
 
+  static const String _criarTabelaMala = '''
+    CREATE TABLE mala (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      nome TEXT NOT NULL,
+      id_evento INTEGER,
+      FOREIGN KEY (id_evento) REFERENCES evento(id)
+    )
+  ''';
+
+  static const String _criarTabelaMalaItem = '''
+    CREATE TABLE mala_item (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id_mala INTEGER NOT NULL,
+      id_item INTEGER NOT NULL,
+      tipo_item TEXT NOT NULL, -- 'roupa', 'sapato', 'acessorio'
+      FOREIGN KEY (id_mala) REFERENCES mala(id)
+    )
+  ''';
+
   static const List<String> comandosCriarTabelas = [
     _criarTabelaUsuario,
     _criarTabelaRoupa,
@@ -79,6 +98,8 @@ class ScriptSQLite {
     _criarTabelaLook,
     _criarTabelaLookItem,
     _criarTabelaEvento,
+    _criarTabelaMala,
+    _criarTabelaMalaItem,
   ];
 
   // ===== COMANDOS DE INSERÇÃO =====
@@ -125,6 +146,20 @@ class ScriptSQLite {
     "INSERT INTO evento (nome, data, id_look) VALUES ('Shopping', '2025-08-01', 1)",
   ];
 
+  static const List<String> _insercoesMala = [
+    "INSERT INTO mala (nome, id_evento) VALUES ('Mala de Aniversário', 1)",
+    "INSERT INTO mala (nome, id_evento) VALUES ('Mala de Shopping', 2)",
+  ];
+
+  static const List<String> _insercoesMalaItem = [
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (1, 1, 'roupa')",
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (1, 1, 'sapato')",
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (1, 2, 'acessorio')",
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (2, 3, 'roupa')",
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (2, 2, 'sapato')",
+    "INSERT INTO mala_item (id_mala, id_item, tipo_item) VALUES (2, 1, 'acessorio')",
+  ];
+
   static const List<List<String>> comandosInsercoes = [
     _insercoesUsuario,
     _insercoesRoupa,
@@ -133,5 +168,7 @@ class ScriptSQLite {
     _insercoesLook,
     _insercoesLookItem,
     _insercoesEvento,
+    _insercoesMala,
+    _insercoesMalaItem,
   ];
 }

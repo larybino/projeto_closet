@@ -7,7 +7,7 @@ class SapatoDAO {
 
   Map<String, dynamic> _toMap(DTOSapato sapato) {
     return {
-      'id': sapato.id,
+      'id': sapato.id != null ? int.tryParse(sapato.id!) : null,
       'modelo': sapato.modelo,
       'tipo': sapato.tipo,
       'cor': sapato.cor,
@@ -37,6 +37,20 @@ class SapatoDAO {
     } else {
       return await database.update('sapato', sapatoMap, where: 'id = ?', whereArgs: [sapato.id]);
     }
+  }
+
+   Future<DTOSapato?> buscarPorId(int id) async {
+    var database = await db;
+    final List<Map<String, dynamic>> maps = await database.query(
+      'sapato',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return _fromMap(maps.first);
+    }
+    return null;
   }
 
   Future<int> excluir(int id) async {

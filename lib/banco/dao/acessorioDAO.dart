@@ -7,7 +7,7 @@ class AcessorioDAO {
 
   Map<String, dynamic> _toMap(DTOAcessorios acessorio) {
     return {
-      'id': acessorio.id,
+      'id': acessorio.id != null ? int.tryParse(acessorio.id!) : null,
       'modelo': acessorio.modelo,
       'tipo': acessorio.tipo,
       'cor': acessorio.cor,
@@ -37,6 +37,20 @@ class AcessorioDAO {
     } else {
       return await database.update('acessorio', acessorioMap, where: 'id = ?', whereArgs: [acessorio.id]);
     }
+  }
+
+  Future<DTOAcessorios?> buscarPorId(int id) async {
+    var database = await db;
+    final List<Map<String, dynamic>> maps = await database.query(
+      'acessorio',
+      where: 'id = ?',
+      whereArgs: [id],
+    );
+
+    if (maps.isNotEmpty) {
+      return _fromMap(maps.first);
+    }
+    return null;
   }
 
   Future<int> excluir(int id) async {
