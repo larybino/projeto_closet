@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/RoupaDAO.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
-import '../campo_texto.dart';
+import '../componentes/campo_texto.dart';
 
 class WidgetCadastroRoupa extends StatefulWidget {
   final DTORoupas? roupa;

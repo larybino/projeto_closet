@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
-import '../campo_texto.dart';
+import '../componentes/campo_texto.dart';
 
 class WidgetEditarPerfil extends StatefulWidget {
   final DTOUsuario usuario;

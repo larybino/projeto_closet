@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
-import '../campo_texto.dart'; 
+import '../componentes/campo_texto.dart'; 
 
 class WidgetLoginUsuario extends StatefulWidget {
   const WidgetLoginUsuario({super.key});

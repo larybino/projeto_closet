@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
-import '../campo_texto.dart';
+import '../componentes/campo_texto.dart';
 
 class WidgetCadastroSapato extends StatefulWidget {
   final DTOSapato? sapato;
