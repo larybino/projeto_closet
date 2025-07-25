@@ -7,6 +7,7 @@ import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/widgets/componentes/seletor_itens.dart';
 
 
 class WidgetCadastroLook extends StatefulWidget {
@@ -126,28 +127,44 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
                 ),
                 const SizedBox(height: 24),
                 
-                _buildItemSelector<DTORoupas>(
-                  title: 'Roupas',
-                  future: _roupasFuture,
-                  selectedItems: _roupasSelecionadas,
-                  itemBuilder: (roupa) => roupa.modelo ?? 'Sem nome',
-                ),
-                const SizedBox(height: 16),
-
-                _buildItemSelector<DTOSapato>(
-                  title: 'Sapatos',
-                  future: _sapatosFuture,
-                  selectedItems: _sapatosSelecionados,
-                  itemBuilder: (sapato) => sapato.modelo ?? 'Sem nome',
-                ),
-                const SizedBox(height: 16),
-
-                _buildItemSelector<DTOAcessorios>(
-                  title: 'Acessórios',
-                  future: _acessoriosFuture,
-                  selectedItems: _acessoriosSelecionados,
-                  itemBuilder: (acessorio) => acessorio.modelo ?? 'Sem nome',
-                ),
+                WidgetSeletorDeItens<DTORoupas>(
+                    titulo: 'Roupas',
+                    future: _roupasFuture,
+                    itensSelecionados: _roupasSelecionadas,
+                    nomeItem: (item) => item.modelo ?? 'Sem nome',
+                    onSelecaoMudou: (novaLista) {
+                      setState(() {
+                        _roupasSelecionadas.clear();
+                        _roupasSelecionadas.addAll(novaLista);
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  WidgetSeletorDeItens<DTOSapato>(
+                    titulo: 'Sapatos',
+                    future: _sapatosFuture,
+                    itensSelecionados: _sapatosSelecionados,
+                    nomeItem: (item) => item.modelo ?? 'Sem nome',
+                    onSelecaoMudou: (novaLista) {
+                      setState(() {
+                        _sapatosSelecionados.clear();
+                        _sapatosSelecionados.addAll(novaLista);
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 20),
+                  WidgetSeletorDeItens<DTOAcessorios>(
+                    titulo: 'Acessórios',
+                    future: _acessoriosFuture,
+                    itensSelecionados: _acessoriosSelecionados,
+                    nomeItem: (item) => item.modelo ?? 'Sem nome',
+                    onSelecaoMudou: (novaLista) {
+                      setState(() {
+                        _acessoriosSelecionados.clear();
+                        _acessoriosSelecionados.addAll(novaLista);
+                      });
+                    },
+                  ),
                 const SizedBox(height: 32),
 
                 SizedBox(
@@ -167,58 +184,6 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
         ),
       ),
       ),
-    );
-  }
-
-  Widget _buildItemSelector<T>({
-    required String title,
-    required Future<List<T>> future,
-    required List<T> selectedItems,
-    required String Function(T) itemBuilder,
-  }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge),
-        const Divider(),
-        FutureBuilder<List<T>>(
-          future: future,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasError) {
-              return Text('Erro ao carregar itens: ${snapshot.error}');
-            }
-            if (!snapshot.hasData || snapshot.data!.isEmpty) {
-              return const Text('Nenhum item cadastrado.');
-            }
-
-            final allItems = snapshot.data!;
-            return Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              children: allItems.map((item) {
-                final isSelected = selectedItems.any((selected) => (selected as dynamic).id == (item as dynamic).id);
-                return FilterChip(
-                  label: Text(itemBuilder(item)),
-                  selected: isSelected,
-                  onSelected: (bool selected) {
-                    setState(() {
-                      if (selected) {
-                        selectedItems.add(item);
-                      } else {
-                        selectedItems.removeWhere((selected) => (selected as dynamic).id == (item as dynamic).id);
-                      }
-                    });
-                  },
-                  selectedColor: const Color.fromARGB(255, 243, 33, 219).withOpacity(0.4),
-                );
-              }).toList(),
-            );
-          },
-        ),
-      ],
     );
   }
 }
