@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
+import 'package:projeto_lary/banco/dto/DTOMala.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_acessorios.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_evento.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_look.dart';
+import 'package:projeto_lary/widgets/forms/widget_cadastro_malas.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_roupa.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_sapato.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_usuario.dart';
 import 'package:projeto_lary/widgets/forms/widget_editar_perfil.dart';
 import 'package:projeto_lary/widgets/forms/widget_login_usuario.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_look.dart';
+import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_mala.dart';
 import 'package:projeto_lary/widgets/lists/widget_acessorios.dart';
 import 'package:projeto_lary/widgets/lists/widget_evento.dart';
 import 'package:projeto_lary/widgets/lists/widget_look.dart';
+import 'package:projeto_lary/widgets/lists/widget_malas.dart';
 import 'package:projeto_lary/widgets/lists/widget_roupa.dart';
 import 'package:projeto_lary/widgets/lists/widget_sapato.dart';
 import 'package:projeto_lary/widgets/lists/widget_usuario.dart';
@@ -52,6 +56,10 @@ class Rotas {
   
   static const String eventos = '/eventos';
   static const String cadastrarEvento = '/cadastrar-evento';
+
+  static const String malas = '/malas';
+  static const String cadastrarMala = '/cadastrar-mala';
+  static const String detalhesMalas = '/detalhes-mala';
 
   static Route<dynamic> gerarRota(RouteSettings settings) {
     final args = settings.arguments;
@@ -130,11 +138,20 @@ class Rotas {
         return MaterialPageRoute(builder: (_) => const WidgetCadastroEvento());
       case eventos:
         return MaterialPageRoute(builder: (_) => const WidgetEventos());
+      
+      case malas:
+        return MaterialPageRoute(builder: (_) => const WidgetMalas());
+      case cadastrarMala:
+        final mala = args is DTOMala ? args : null;
+        return MaterialPageRoute(builder: (_) => WidgetCadastroMala(mala: mala));
+      case detalhesMalas:
+        if (args is DTOMala) {
+          return MaterialPageRoute(builder: (_) => WidgetDetalhesMala(mala: args));
+        }
+        return _erroRota();
+        
       default:
-        return _erroRota(mensagem: 'Rota ${settings.name} não encontrada.');
-    
-    
-    
+        return _erroRota(mensagem: 'Rota ${settings.name} não encontrada.');  
     }
   }
 

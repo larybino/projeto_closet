@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dao/MalaDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOMala.dart';
-import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_malas.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_mala.dart';
 
 class WidgetMalas extends StatefulWidget {
-  final DTOUsuario usuario;
-  const WidgetMalas({super.key, required this.usuario});
+  const WidgetMalas({super.key});
 
   @override
   State<WidgetMalas> createState() => _WidgetListaMalasState();
@@ -94,11 +92,29 @@ class _WidgetListaMalasState extends State<WidgetMalas> {
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
       body: Container(
-        // ... (código do Container com gradiente)
+        width: double.infinity,
+        height: double.infinity,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color.fromARGB(255, 255, 255, 255),
+              Color.fromARGB(255, 240, 174, 226),
+            ],
+          ),
+        ),
         child: FutureBuilder<List<DTOMala>>(
           future: _malasFuture,
           builder: (context, snapshot) {
-            // ... (lógica do FutureBuilder, igual às outras listas)
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              return Center(
+                child: Text('Erro ao carregar looks: ${snapshot.error}'),
+              );
+            }
             if (!snapshot.hasData || snapshot.data!.isEmpty) {
               return const Center(child: Text('Nenhuma mala cadastrada.'));
             }

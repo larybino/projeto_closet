@@ -98,7 +98,12 @@ class _WidgetMenuState extends State<WidgetMenu> {
             _criarItemMenu(
               icone: Icons.event, 
               rotulo: 'Meus Eventos',
-              aoPressionar: () => Navigator.pushNamed(context, '/eventos'), // Crie a rota se necessário
+              aoPressionar: () => Navigator.pushNamed(context, Rotas.eventos), 
+            ),
+            _criarItemMenu(
+              icone: Icons.card_travel, 
+              rotulo: 'Minhas Malas', 
+              aoPressionar:()=> Navigator.pushNamed(context, Rotas.malas),
             ),
             const Divider(),
             _criarItemMenu(
