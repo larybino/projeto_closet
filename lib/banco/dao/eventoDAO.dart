@@ -21,9 +21,9 @@ class EventoDAO {
     DTOLook? look;
     final lookId = map['id_look'];
 
-    if (lookId != null) {
-      look = await LookDAO().buscarPorId(lookId);
-    }
+    // if (lookId != null) {
+    //   look = await LookDAO().buscarPorId(lookId);
+    // }
 
     return DTOEvento.fromMap(map, look: look);
   }

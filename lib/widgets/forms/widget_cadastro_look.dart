@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/RoupaDAO.dart';
-import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
-import 'package:projeto_lary/banco/dao/lookDAO.dart';
-import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/repositories/acessorio_repository.dart';
+import 'package:projeto_lary/repositories/look_repository.dart';
+import 'package:projeto_lary/repositories/roupa_repository.dart';
+import 'package:projeto_lary/repositories/sapato_repository.dart';
 import 'package:projeto_lary/widgets/componentes/seletor_itens.dart';
 
 
@@ -21,7 +21,7 @@ class WidgetCadastroLook extends StatefulWidget {
 
 class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
   final _formKey = GlobalKey<FormState>();
-  final _lookDAO = LookDAO();
+  final _lookRepository = LookRepository();
 
   late final TextEditingController _nomeController;
   
@@ -48,9 +48,9 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
   }
 
   void _carregarItens() {
-    _roupasFuture = RoupaDAO().listar();
-    _sapatosFuture = SapatoDAO().listar();
-    _acessoriosFuture = AcessorioDAO().listar();
+    _roupasFuture = RoupaRepository().listar();
+    _sapatosFuture = SapatoRepository().listar();
+    _acessoriosFuture = AcessorioRepository().listar();
   }
 
   @override
@@ -70,7 +70,7 @@ class _WidgetCadastroLookState extends State<WidgetCadastroLook> {
       );
 
       try {
-        await _lookDAO.salvar(lookParaSalvar);
+        await _lookRepository.salvar(lookParaSalvar);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(widget.look == null ? 'Look salvo com sucesso!' : 'Look atualizado com sucesso!'),

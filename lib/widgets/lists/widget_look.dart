@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/lookDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
+import 'package:projeto_lary/repositories/look_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_look.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_look.dart';
 
@@ -12,7 +12,7 @@ class WidgetLook extends StatefulWidget {
 }
 
 class _WidgetLookState extends State<WidgetLook> {
-  final _lookDAO = LookDAO();
+  final _lookRepository = LookRepository();
   late Future<List<DTOLook>> _looksFuture;
 
   @override
@@ -23,7 +23,7 @@ class _WidgetLookState extends State<WidgetLook> {
 
   void _atualizarListaLooks() {
     setState(() {
-      _looksFuture = _lookDAO.listar();
+      _looksFuture = _lookRepository.listar();
     });
   }
 
@@ -60,10 +60,21 @@ class _WidgetLookState extends State<WidgetLook> {
           ),
           TextButton(
             onPressed: () async {
-              if (look.id != null) {
-                await _lookDAO.excluir(look.id!);
+              try {
+                await _lookRepository.excluir(look);
                 Navigator.pop(ctx);
                 _atualizarListaLooks();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Look excluído com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } catch (e) {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erro ao excluir peça: $e')),
+                );
               }
             },
             child: const Text('Excluir', style: TextStyle(color: Colors.red)),
