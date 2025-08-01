@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
-import 'package:projeto_lary/banco/dao/eventoDAO.dart';
-import 'package:projeto_lary/banco/dao/roupaDAO.dart';
-import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
 import 'package:projeto_lary/banco/dto/DTOEvento.dart';
 import 'package:projeto_lary/banco/dto/DTOMala.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/repositories/acessorio_repository.dart';
+import 'package:projeto_lary/repositories/evento_repository.dart';
 import 'package:projeto_lary/repositories/mala_repository.dart';
+import 'package:projeto_lary/repositories/roupa_repository.dart';
+import 'package:projeto_lary/repositories/sapato_repository.dart';
 import '../componentes/seletor_itens.dart';
 
 class WidgetCadastroMala extends StatefulWidget {
@@ -52,10 +52,10 @@ class _WidgetCadastroMalaState extends State<WidgetCadastroMala> {
   }
 
   void _carregarDados() {
-    _eventosFuture = EventoDAO().listar();
-    _roupasFuture = RoupaDAO().listar();
-    _sapatosFuture = SapatoDAO().listar();
-    _acessoriosFuture = AcessorioDAO().listar();
+    _eventosFuture = EventoRepository().listar();
+    _roupasFuture = RoupaRepository().listar();
+    _sapatosFuture = SapatoRepository().listar();
+    _acessoriosFuture = AcessorioRepository().listar();
   }
 
   Future<void> _salvar() async {

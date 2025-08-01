@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_lary/configuracao/rotas.dart';
 
 class WidgetTelaInicial extends StatelessWidget {
   const WidgetTelaInicial({super.key});
@@ -78,7 +79,7 @@ class WidgetTelaInicial extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/cadastro_usuario');
+                      Navigator.pushNamed(context, Rotas.cadastro);
                     },
                     icon: const Icon(
                       Icons.person_add,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
+import 'package:projeto_lary/repositories/usuario_repository.dart';
 import '../componentes/campo_texto.dart';
 
 class WidgetEditarPerfil extends StatefulWidget {
@@ -14,7 +14,7 @@ class WidgetEditarPerfil extends StatefulWidget {
 
 class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
   final _formKey = GlobalKey<FormState>();
-  final _usuarioDAO = UsuarioDAO();
+  final _usuarioRepository = UsuarioRepository();
 
   late final TextEditingController _nomeController;
   late final TextEditingController _emailController;
@@ -47,7 +47,7 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
       );
 
       try {
-        await _usuarioDAO.salvar(usuarioAtualizado);
+        await _usuarioRepository.salvar(usuarioAtualizado);
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
