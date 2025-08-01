@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_lary/banco/dao/eventoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOEvento.dart';
+import 'package:projeto_lary/repositories/evento_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_evento.dart';
 
 class WidgetEventos extends StatefulWidget {
@@ -12,7 +12,7 @@ class WidgetEventos extends StatefulWidget {
 }
 
 class _WidgetEventosState extends State<WidgetEventos> {
-  final _eventoDAO = EventoDAO();
+  final _eventoRepository = EventoRepository();
   late Future<List<DTOEvento>> _eventosFuture;
 
   @override
@@ -23,7 +23,7 @@ class _WidgetEventosState extends State<WidgetEventos> {
 
   void _atualizarListaEventos() {
     setState(() {
-      _eventosFuture = _eventoDAO.listar();
+      _eventosFuture = _eventoRepository.listar();
     });
   }
 
@@ -61,22 +61,19 @@ class _WidgetEventosState extends State<WidgetEventos> {
           TextButton(
             onPressed: () async {
               try {
-                final id = int.tryParse(evento.id ?? '');
-                if (id != null) {
-                  await _eventoDAO.excluir(id);
-                  Navigator.pop(ctx);
-                  _atualizarListaEventos();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Evento excluído com sucesso!'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                }
+                await _eventoRepository.excluir(evento);
+                Navigator.pop(ctx);
+                _atualizarListaEventos();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Evento excluído com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               } catch (e) {
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Erro ao excluir evento: $e')),
+                  SnackBar(content: Text('Erro ao excluir peça: $e')),
                 );
               }
             },

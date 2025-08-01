@@ -1,5 +1,3 @@
-// NOVO FICHEIRO: lib/services/look_firebase_service.dart
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
@@ -14,6 +12,27 @@ class LookFirebaseService {
     final user = _auth.currentUser;
     if (user == null) throw Exception('Usuário não autenticado.');
     return FirebaseFirestore.instance.collection('usuarios/${user.uid}/looks');
+  }
+
+  Future<DTOLook> _docToLook(DocumentSnapshot doc) async {
+    final lookData = doc.data() as Map<String, dynamic>;
+    final look = DTOLook.fromJson(lookData, doc.id);
+
+    final roupasIds = List.from(lookData['roupas_ids'] ?? []).whereType<String>().toList();
+    final sapatosIds = List.from(lookData['sapatos_ids'] ?? []).whereType<String>().toList();
+    final acessoriosIds = List.from(lookData['acessorios_ids'] ?? []).whereType<String>().toList();
+
+    // Busca todos os itens de uma vez para eficiência
+    final todasRoupas = await RoupaRepository().listar();
+    final todosSapatos = await SapatoRepository().listar();
+    final todosAcessorios = await AcessorioRepository().listar();
+
+    // Filtra para encontrar apenas os itens que pertencem a este look
+    look.roupas = todasRoupas.where((r) => roupasIds.contains(r.id)).toList();
+    look.sapatos = todosSapatos.where((s) => sapatosIds.contains(s.id)).toList();
+    look.acessorios = todosAcessorios.where((a) => acessoriosIds.contains(a.id)).toList();
+
+    return look;
   }
 
   Future<String> salvar(DTOLook look) async {
@@ -32,22 +51,14 @@ class LookFirebaseService {
 
   Future<List<DTOLook>> listar() async {
     QuerySnapshot snapshot = await _looksCollection.get();
-    
-    return Future.wait(snapshot.docs.map((doc) async {
-      final lookData = doc.data() as Map<String, dynamic>;
-      final look = DTOLook.fromJson(lookData, doc.id);
+    return Future.wait(snapshot.docs.map((doc) => _docToLook(doc)).toList());
+  }
 
-      final roupasIds = List<String>.from(lookData['roupas_ids'] ?? []);
-      final sapatosIds = List<String>.from(lookData['sapatos_ids'] ?? []);
-      final acessoriosIds = List<String>.from(lookData['acessorios_ids'] ?? []);
-
-      look.roupas = (await RoupaRepository().listar()).where((r) => roupasIds.contains(r.id)).toList();
-      look.sapatos = (await SapatoRepository().listar()).where((s) => sapatosIds.contains(s.id)).toList();
-      look.acessorios = (await AcessorioRepository().listar()).where((a) => acessoriosIds.contains(a.id)).toList();
-
-      return look;
-    }).toList());
+  Future<DTOLook?> buscarPorId(String id) async {
+    DocumentSnapshot doc = await _looksCollection.doc(id).get();
+    if (doc.exists) {
+      return await _docToLook(doc);
+    }
+    return null;
   }
 }
-
-

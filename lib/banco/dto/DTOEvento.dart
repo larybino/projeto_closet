@@ -29,4 +29,22 @@ class DTOEvento {
       look: look, // O look completo é associado aqui.
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nome': nome,
+      'data': data,
+      'id_look': look?.id,
+    };
+  }
+
+  /// Cria um objeto a partir de um JSON do Firebase.
+  /// A propriedade 'look' será preenchida depois pelo repositório.
+  factory DTOEvento.fromJson(Map<String, dynamic> json, String id) {
+    return DTOEvento(
+      id: id,
+      nome: json['nome'],
+      data: json['data'],
+    );
+  }
 }

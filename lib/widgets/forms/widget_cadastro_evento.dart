@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:projeto_lary/banco/dao/eventoDAO.dart';
-import 'package:projeto_lary/banco/dao/lookDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOEvento.dart';
-import 'package:projeto_lary/banco/dto/DTOLook.dart'; 
+import 'package:projeto_lary/banco/dto/DTOLook.dart';
+import 'package:projeto_lary/repositories/evento_repository.dart';
+import 'package:projeto_lary/repositories/look_repository.dart'; 
 
 
 class WidgetCadastroEvento extends StatefulWidget {
@@ -17,7 +17,7 @@ class WidgetCadastroEvento extends StatefulWidget {
 
 class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
   final _formKey = GlobalKey<FormState>();
-  final _eventoDAO = EventoDAO();
+  final _eventoRepository = EventoRepository();
 
   late final TextEditingController _nomeController;
   late final TextEditingController _dataController;
@@ -42,7 +42,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
       }
     }
     
-    _looksFuture = LookDAO().listar();
+    _looksFuture = LookRepository().listar();
   }
 
   @override
@@ -78,7 +78,7 @@ class _WidgetCadastroEventoState extends State<WidgetCadastroEvento> {
       );
 
       try {
-        await _eventoDAO.salvar(eventoParaSalvar);
+        await _eventoRepository.salvar(eventoParaSalvar);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(widget.evento == null ? 'Evento salvo com sucesso!' : 'Evento atualizado com sucesso!'),

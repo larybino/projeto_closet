@@ -33,6 +33,20 @@ class LookDAO {
     await batch.commit(noResult: true);
   }
 
+ Future<DTOLook?> buscarPorId(String id) async { 
+    var database = await db;
+    final List<Map<String, dynamic>> maps = await database.query(
+      'look',
+      where: 'id = ?',
+      whereArgs: [id], 
+    );
+
+    if (maps.isNotEmpty) {
+      return _fromMap(maps.first);
+    }
+    return null;
+  }
+
   Future<void> excluir(String id) async {
     var database = await db;
     await database.delete('look_item', where: 'id_look = ?', whereArgs: [id]);
