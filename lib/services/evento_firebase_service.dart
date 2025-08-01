@@ -12,6 +12,16 @@ class EventoFirebaseService {
     return FirebaseFirestore.instance.collection('usuarios/${user.uid}/eventos');
   }
 
+  Future<DTOEvento> _docToEvento(DocumentSnapshot doc) async {
+    final data = doc.data() as Map<String, dynamic>;
+    final evento = DTOEvento.fromJson(data, doc.id);
+    
+    if (data['id_look'] != null) {
+      evento.look = await LookRepository().buscarPorId(data['id_look']);
+    }
+    return evento;
+  }
+
   Future<String> salvar(DTOEvento evento) async {
     if (evento.id == null || evento.id!.isEmpty) {
       DocumentReference docRef = await _eventosCollection.add(evento.toJson());
@@ -29,7 +39,6 @@ class EventoFirebaseService {
   Future<List<DTOEvento>> listar() async {
     QuerySnapshot snapshot = await _eventosCollection.get();
     
-    // Para cada evento, busca o seu look completo
     return Future.wait(snapshot.docs.map((doc) async {
       final data = doc.data() as Map<String, dynamic>;
       final evento = DTOEvento.fromJson(data, doc.id);
@@ -40,5 +49,13 @@ class EventoFirebaseService {
       }
       return evento;
     }).toList());
+  }
+
+   Future<DTOEvento?> buscarPorId(String id) async {
+    DocumentSnapshot doc = await _eventosCollection.doc(id).get();
+    if (doc.exists) {
+      return await _docToEvento(doc);
+    }
+    return null;
   }
 }

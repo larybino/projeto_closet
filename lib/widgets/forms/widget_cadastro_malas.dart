@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/MalaDAO.dart';
 import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
 import 'package:projeto_lary/banco/dao/eventoDAO.dart';
 import 'package:projeto_lary/banco/dao/roupaDAO.dart';
@@ -9,6 +8,7 @@ import 'package:projeto_lary/banco/dto/DTOEvento.dart';
 import 'package:projeto_lary/banco/dto/DTOMala.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/repositories/mala_repository.dart';
 import '../componentes/seletor_itens.dart';
 
 class WidgetCadastroMala extends StatefulWidget {
@@ -22,7 +22,7 @@ class WidgetCadastroMala extends StatefulWidget {
 
 class _WidgetCadastroMalaState extends State<WidgetCadastroMala> {
   final _formKey = GlobalKey<FormState>();
-  final _malaDAO = MalaDAO();
+  final _malaRepository = MalaRepository();
 
   late final TextEditingController _nomeController;
   
@@ -70,7 +70,7 @@ class _WidgetCadastroMalaState extends State<WidgetCadastroMala> {
       );
 
       try {
-        await _malaDAO.salvar(malaParaSalvar);
+        await _malaRepository.salvar(malaParaSalvar);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(widget.mala == null ? 'Mala salva com sucesso!' : 'Mala atualizada com sucesso!'),

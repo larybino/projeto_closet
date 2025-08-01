@@ -31,7 +31,7 @@ class WidgetDetalhesMala extends StatelessWidget {
             children: [
               Center(
                 child: Text(
-                  mala.nome,
+                  mala.nome ?? '',
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),

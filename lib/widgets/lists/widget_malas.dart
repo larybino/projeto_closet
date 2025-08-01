@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/MalaDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOMala.dart';
+import 'package:projeto_lary/repositories/mala_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_malas.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_mala.dart';
 
@@ -12,7 +12,7 @@ class WidgetMalas extends StatefulWidget {
 }
 
 class _WidgetListaMalasState extends State<WidgetMalas> {
-  final _malaDAO = MalaDAO();
+  final _malaRepository = MalaRepository();
   late Future<List<DTOMala>> _malasFuture;
 
   @override
@@ -23,7 +23,7 @@ class _WidgetListaMalasState extends State<WidgetMalas> {
 
   void _atualizarListaMalas() {
     setState(() {
-      _malasFuture = _malaDAO.listar();
+      _malasFuture = _malaRepository.listar();
     });
   }
 
@@ -58,18 +58,26 @@ class _WidgetListaMalasState extends State<WidgetMalas> {
                 child: const Text('Cancelar'),
               ),
               TextButton(
-                onPressed: () async {
-                  if (mala.id != null) {
-                    await _malaDAO.excluir(mala.id!);
-                    Navigator.pop(ctx);
-                    _atualizarListaMalas();
-                  }
-                },
-                child: const Text(
-                  'Excluir',
-                  style: TextStyle(color: Colors.red),
-                ),
-              ),
+            onPressed: () async {
+              try {
+                await _malaRepository.excluir(mala);
+                Navigator.pop(ctx);
+                _atualizarListaMalas();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Mala excluída com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } catch (e) {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erro ao excluir peça: $e')),
+                );
+              }
+            },
+            child: const Text('Excluir', style: TextStyle(color: Colors.red)),
+          ),
             ],
           ),
     );
@@ -141,7 +149,7 @@ class _WidgetListaMalasState extends State<WidgetMalas> {
                         color: Color.fromARGB(255, 243, 33, 219),
                       ),
                       title: Text(
-                        mala.nome,
+                        mala.nome ?? '',
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(

@@ -29,4 +29,12 @@ class EventoRepository {
       return await _localDAO.listar();
     }
   }
+
+  Future<DTOEvento?> buscarPorId(String id) async {
+    try {
+      return await _firebaseService.buscarPorId(id);
+    } catch (e) {
+      return await _localDAO.buscarPorId(id);
+    }
+  }
 }
