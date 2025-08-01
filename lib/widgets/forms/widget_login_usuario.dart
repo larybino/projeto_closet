@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
+import 'package:projeto_lary/configuracao/rotas.dart';
+import 'package:projeto_lary/repositories/usuario_repository.dart';
 import '../componentes/campo_texto.dart'; 
 
 class WidgetLoginUsuario extends StatefulWidget {
@@ -11,7 +13,7 @@ class WidgetLoginUsuario extends StatefulWidget {
 
 class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
   final _formKey = GlobalKey<FormState>();
-  final _usuarioDAO = UsuarioDAO();
+  final _usuarioRepository = UsuarioRepository();
   final _emailController = TextEditingController();
   final _senhaController = TextEditingController();
   bool _isLoading = false;
@@ -30,37 +32,28 @@ class _WidgetLoginUsuarioState extends State<WidgetLoginUsuario> {
       });
 
       try {
-        final usuario = await _usuarioDAO.buscarPorEmail(_emailController.text);
+        final userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _senhaController.text,
+        );
 
-        if (usuario != null && usuario.senha == _senhaController.text) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Bem-vindo(a), ${usuario.nome}!'),
-              backgroundColor: Colors.green,
-              
-            ),
-            
-          );
-          Navigator.of(context).pushNamedAndRemoveUntil('/menu', (route) => false, arguments: usuario);
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('E-mail ou senha inválidos.'),
-              backgroundColor: Colors.red,
-            ),
-          );
+        if (userCredential.user != null) {
+          final usuario = await _usuarioRepository.buscarPorId(userCredential.user!.uid);
+
+          if (usuario != null) {
+            Navigator.of(context).pushNamedAndRemoveUntil(Rotas.menu, (route) => false, arguments: usuario);
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Dados de perfil não encontrados.')),
+            );
+          }
         }
-      } catch (e) {
+      } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Ocorreu um erro: $e'),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text(e.message ?? 'E-mail ou senha inválidos.')),
         );
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() => _isLoading = false);
       }
     }
   }

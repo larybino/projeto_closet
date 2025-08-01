@@ -3,7 +3,7 @@ class ScriptSQLite {
 
   static const String _criarTabelaUsuario = '''
     CREATE TABLE usuario (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       nome TEXT NOT NULL,
       email TEXT NOT NULL UNIQUE,
       senha TEXT NOT NULL,
@@ -13,7 +13,7 @@ class ScriptSQLite {
 
   static const String _criarTabelaRoupa = '''
     CREATE TABLE roupa (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       modelo TEXT NOT NULL,
       tipo TEXT,
       cor TEXT,
@@ -24,7 +24,7 @@ class ScriptSQLite {
 
   static const String _criarTabelaSapato = '''
     CREATE TABLE sapato (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       modelo TEXT NOT NULL,
       tipo TEXT,
       cor TEXT,
@@ -35,7 +35,7 @@ class ScriptSQLite {
 
   static const String _criarTabelaAcessorio = '''
     CREATE TABLE acessorio (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       modelo TEXT NOT NULL,
       tipo TEXT,
       cor TEXT,
@@ -46,16 +46,16 @@ class ScriptSQLite {
 
   static const String _criarTabelaLook = '''
     CREATE TABLE look (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       nome TEXT NOT NULL
     )
   ''';
 
   static const String _criarTabelaLookItem = '''
     CREATE TABLE look_item (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      id_look INTEGER NOT NULL,
-      id_item INTEGER NOT NULL,
+      id TEXT PRIMARY KEY,
+      id_look TEXT NOT NULL,
+      id_item TEXT NOT NULL,
       tipo_item TEXT NOT NULL, -- 'roupa', 'sapato', 'acessorio'
       FOREIGN KEY (id_look) REFERENCES look(id)
     )
@@ -63,28 +63,28 @@ class ScriptSQLite {
 
   static const String _criarTabelaEvento = '''
     CREATE TABLE evento (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       nome TEXT NOT NULL,
       data TEXT,
-      id_look INTEGER,
+      id_look TEXT,
       FOREIGN KEY (id_look) REFERENCES look(id)
     )
   ''';
 
   static const String _criarTabelaMala = '''
     CREATE TABLE mala (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      id TEXT PRIMARY KEY,
       nome TEXT NOT NULL,
-      id_evento INTEGER,
+      id_evento TEXT,
       FOREIGN KEY (id_evento) REFERENCES evento(id)
     )
   ''';
 
   static const String _criarTabelaMalaItem = '''
     CREATE TABLE mala_item (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      id_mala INTEGER NOT NULL,
-      id_item INTEGER NOT NULL,
+      id TEXT PRIMARY KEY,
+      id_mala TEXT NOT NULL,
+      id_item TEXT NOT NULL,
       tipo_item TEXT NOT NULL, -- 'roupa', 'sapato', 'acessorio'
       FOREIGN KEY (id_mala) REFERENCES mala(id)
     )

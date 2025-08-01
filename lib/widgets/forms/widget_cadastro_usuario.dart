@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/usuarioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
+import 'package:projeto_lary/repositories/usuario_repository.dart';
 import '../componentes/campo_texto.dart';
 
 class WidgetCadastroUsuario extends StatefulWidget {
@@ -12,7 +13,7 @@ class WidgetCadastroUsuario extends StatefulWidget {
 
 class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
   final _formKey = GlobalKey<FormState>();
-  final _usuarioDAO = UsuarioDAO();
+  final _usuarioRepository = UsuarioRepository();
 
   final _nomeController = TextEditingController();
   final _emailController = TextEditingController();
@@ -32,39 +33,30 @@ class _WidgetCadastroUsuarioState extends State<WidgetCadastroUsuario> {
 
   Future<void> _cadastrar() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final usuarioExistente = await _usuarioDAO.buscarPorEmail(_emailController.text);
-      if (usuarioExistente != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Este e-mail já está em uso.'),
-            backgroundColor: Colors.orange,
-          ),
-        );
-        return;
-      }
-
-      final novoUsuario = DTOUsuario(
-        nome: _nomeController.text,
-        email: _emailController.text,
-        senha: _senhaController.text, 
-        fotoPerfil: _fotoUrlController.text,
-      );
-
       try {
-        await _usuarioDAO.salvar(novoUsuario);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Cadastro realizado com sucesso!'),
-            backgroundColor: Colors.green,
-          ),
+        final userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _senhaController.text,
         );
-        Navigator.of(context).pushReplacementNamed('/login');
-      } catch (e) {
+
+        if (userCredential.user != null) {
+          final novoUsuario = DTOUsuario(
+            id: userCredential.user!.uid,
+            nome: _nomeController.text,
+            email: _emailController.text,
+            fotoPerfil: _fotoUrlController.text,
+          );
+
+          await _usuarioRepository.salvar(novoUsuario);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Cadastro realizado com sucesso!')),
+          );
+          Navigator.of(context).pop(); 
+        }
+      } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Erro ao realizar cadastro: $e'),
-            backgroundColor: Colors.red,
-          ),
+          SnackBar(content: Text(e.message ?? 'Erro ao cadastrar')),
         );
       }
     }

@@ -6,7 +6,7 @@ class RoupaDAO {
 
   Map<String, dynamic> _toMap(DTORoupas roupa) {
     return {
-      'id': roupa.id != null ? int.tryParse(roupa.id!) : null,
+      'id': roupa.id ,
       'modelo': roupa.modelo,
       'tipo': roupa.tipo,
       'cor': roupa.cor,
@@ -16,14 +16,7 @@ class RoupaDAO {
   }
 
   DTORoupas _fromMap(Map<String, dynamic> map) {
-    return DTORoupas(
-      id: map['id']?.toString(),
-      modelo: map['modelo'],
-      tipo: map['tipo'],
-      cor: map['cor'],
-      marca: map['marca'],
-      fotoUrl: map['url_foto'],
-    );
+    return DTORoupas.fromMap(map);
   }
 
   Future<DTORoupas?> buscarPorId(int id) async {
@@ -39,21 +32,18 @@ class RoupaDAO {
     return null;
   }
 
-  Future<int> salvar(DTORoupas roupa) async {
+  Future<void> salvar(DTORoupas roupa) async {
     var database = await db;
-    Map<String, dynamic> roupaMap = _toMap(roupa);
-
-    if (roupa.id == null) {
-      roupaMap.remove('id');
-      return await database.insert('roupa', roupaMap);
-    } else {
-      return await database.update('roupa', roupaMap, where: 'id = ?', whereArgs: [roupa.id]);
-    }
+    await database.insert(
+      'roupa', 
+      _toMap(roupa), 
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
-  Future<int> excluir(int id) async {
+  Future<void> excluir(int id) async {
     var database = await db;
-    return await database.delete('roupa', where: 'id = ?', whereArgs: [id]);
+    await database.delete('roupa', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<List<DTORoupas>> listar() async {
@@ -62,5 +52,15 @@ class RoupaDAO {
     return List.generate(maps.length, (i) {
       return _fromMap(maps[i]);
     });
+  }
+
+   Future<void> sincronizar(List<DTORoupas> roupas) async {
+    var database = await db;
+    var batch = database.batch();
+    batch.delete('roupa');
+    for (var roupa in roupas) {
+      batch.insert('roupa', _toMap(roupa));
+    }
+    await batch.commit(noResult: true);
   }
 }

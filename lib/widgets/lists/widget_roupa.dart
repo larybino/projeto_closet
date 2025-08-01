@@ -1,8 +1,6 @@
-
-
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/roupaDAO.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
+import 'package:projeto_lary/repositories/roupa_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_roupa.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_roupas.dart';
 
@@ -14,7 +12,7 @@ class WidgetRoupa extends StatefulWidget {
 }
 
 class _WidgetRoupaState extends State<WidgetRoupa> {
-  final _roupaDAO = RoupaDAO();
+  final _roupaRepository = RoupaRepository();
   late Future<List<DTORoupas>> _roupasFuture;
 
   @override
@@ -25,7 +23,7 @@ class _WidgetRoupaState extends State<WidgetRoupa> {
 
   void _atualizarListaRoupas() {
     setState(() {
-      _roupasFuture = _roupaDAO.listar();
+      _roupasFuture = _roupaRepository.listar();
     });
   }
 
@@ -63,18 +61,15 @@ class _WidgetRoupaState extends State<WidgetRoupa> {
           TextButton(
             onPressed: () async {
               try {
-                final id = int.tryParse(roupa.id ?? '');
-                if (id != null) {
-                  await _roupaDAO.excluir(id);
-                  Navigator.pop(ctx);
-                  _atualizarListaRoupas();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Peça excluída com sucesso!'),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
-                }
+                await _roupaRepository.excluir(roupa);
+                Navigator.pop(ctx);
+                _atualizarListaRoupas();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Peça excluída com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
               } catch (e) {
                 Navigator.pop(ctx);
                 ScaffoldMessenger.of(context).showSnackBar(
