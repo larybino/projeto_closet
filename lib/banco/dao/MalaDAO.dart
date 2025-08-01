@@ -78,13 +78,13 @@ class MalaDAO {
       String tipoItem = itemMap['tipo_item'];
 
       if (tipoItem == 'roupa') {
-        var item = await RoupaDAO().buscarPorId(itemId);
+        var item = await RoupaDAO().buscarPorId(itemId.toString());
         if (item != null) roupas.add(item);
       } else if (tipoItem == 'sapato') {
-        var item = await SapatoDAO().buscarPorId(itemId);
+        var item = await SapatoDAO().buscarPorId(itemId.toString());
         if (item != null) sapatos.add(item);
       } else if (tipoItem == 'acessorio') {
-        var item = await AcessorioDAO().buscarPorId(itemId);
+        var item = await AcessorioDAO().buscarPorId(itemId.toString());
         if (item != null) acessorios.add(item);
       }
     }

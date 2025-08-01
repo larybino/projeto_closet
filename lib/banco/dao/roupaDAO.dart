@@ -19,15 +19,16 @@ class RoupaDAO {
     return DTORoupas.fromMap(map);
   }
 
-  Future<DTORoupas?> buscarPorId(int id) async {
+  Future<DTORoupas?> buscarPorId(String id) async { 
     var database = await db;
     final List<Map<String, dynamic>> maps = await database.query(
       'roupa',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id], 
     );
+
     if (maps.isNotEmpty) {
-      return _fromMap(maps.first); 
+      return _fromMap(maps.first);
     }
     return null;
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/repositories/sapato_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_sapato.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_sapato.dart';
 
@@ -13,7 +13,7 @@ class WidgetSapato extends StatefulWidget {
 }
 
 class _WidgetSapatoState extends State<WidgetSapato> {
-  final _sapatoDAO = SapatoDAO();
+  final _sapatoRepository = SapatoRepository();
   late Future<List<DTOSapato>> _sapatosFuture;
 
   @override
@@ -24,7 +24,7 @@ class _WidgetSapatoState extends State<WidgetSapato> {
 
   void _atualizarListaSapatos() {
     setState(() {
-      _sapatosFuture = _sapatoDAO.listar();
+      _sapatosFuture = _sapatoRepository.listar();
     });
   }
 
@@ -61,11 +61,21 @@ class _WidgetSapatoState extends State<WidgetSapato> {
           ),
           TextButton(
             onPressed: () async {
-              final id = int.tryParse(sapato.id ?? '');
-              if (id != null) {
-                await _sapatoDAO.excluir(id);
+              try {
+                await _sapatoRepository.excluir(sapato);
                 Navigator.pop(ctx);
                 _atualizarListaSapatos();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Sapato excluído com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } catch (e) {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erro ao excluir peça: $e')),
+                );
               }
             },
             child: const Text('Excluir', style: TextStyle(color: Colors.red)),

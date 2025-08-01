@@ -5,64 +5,49 @@ import 'package:sqflite/sqflite.dart';
 class SapatoDAO {
   Future<Database> get db => ConexaoSQLite.database;
 
-  Map<String, dynamic> _toMap(DTOSapato sapato) {
-    return {
-      'id': sapato.id != null ? int.tryParse(sapato.id!) : null,
-      'modelo': sapato.modelo,
-      'tipo': sapato.tipo,
-      'cor': sapato.cor,
-      'marca': sapato.marca,
-      'url_foto': sapato.fotoUrl,
-    };
-  }
 
-  DTOSapato _fromMap(Map<String, dynamic> map) {
-    return DTOSapato(
-      id: map['id']?.toString(),
-      modelo: map['modelo'],
-      tipo: map['tipo'],
-      cor: map['cor'],
-      marca: map['marca'],
-      fotoUrl: map['url_foto'],
+
+ Future<void> salvar(DTOSapato sapato) async {
+    var database = await db;
+    await database.insert(
+      'sapato', 
+      sapato.toMap(), 
+      conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
 
-  Future<int> salvar(DTOSapato sapato) async {
-    var database = await db;
-    Map<String, dynamic> sapatoMap = _toMap(sapato);
-
-    if (sapato.id == null) {
-      sapatoMap.remove('id');
-      return await database.insert('sapato', sapatoMap);
-    } else {
-      return await database.update('sapato', sapatoMap, where: 'id = ?', whereArgs: [sapato.id]);
-    }
-  }
-
-   Future<DTOSapato?> buscarPorId(int id) async {
+Future<DTOSapato?> buscarPorId(String id) async {
     var database = await db;
     final List<Map<String, dynamic>> maps = await database.query(
       'sapato',
       where: 'id = ?',
-      whereArgs: [id],
+      whereArgs: [id], 
     );
 
     if (maps.isNotEmpty) {
-      return _fromMap(maps.first);
+      return DTOSapato.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<int> excluir(int id) async {
+Future<void> excluir(String id) async {
     var database = await db;
-    return await database.delete('sapato', where: 'id = ?', whereArgs: [id]);
+    await database.delete('sapato', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<List<DTOSapato>> listar() async {
     var database = await db;
     final List<Map<String, dynamic>> maps = await database.query('sapato', orderBy: 'modelo');
-    return List.generate(maps.length, (i) {
-      return _fromMap(maps[i]);
-    });
+    return List.generate(maps.length, (i) => DTOSapato.fromMap(maps[i]));
+  }
+
+  Future<void> sincronizar(List<DTOSapato> sapatos) async {
+    var database = await db;
+    var batch = database.batch();
+    batch.delete('sapato');
+    for (var sapato in sapatos) {
+      batch.insert('sapato', sapato.toMap());
+    }
+    await batch.commit(noResult: true);
   }
 }

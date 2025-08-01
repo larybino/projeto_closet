@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/sapatoDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/repositories/sapato_repository.dart';
 import '../componentes/campo_texto.dart';
 
 class WidgetCadastroSapato extends StatefulWidget {
@@ -14,7 +14,7 @@ class WidgetCadastroSapato extends StatefulWidget {
 
 class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
   final _formKey = GlobalKey<FormState>();
-  final _sapatoDAO = SapatoDAO();
+  final _sapatoRepository = SapatoRepository();
 
   late final TextEditingController _modeloController;
   late final TextEditingController _tipoController;
@@ -54,7 +54,7 @@ class _WidgetCadastroSapatoState extends State<WidgetCadastroSapato> {
       );
 
       try {
-        await _sapatoDAO.salvar(sapatoParaSalvar);
+        await _sapatoRepository.salvar(sapatoParaSalvar);
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/repositories/acessorio_repository.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_acessorios.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_acessorios.dart';
 
@@ -13,7 +13,7 @@ class WidgetAcessorios extends StatefulWidget {
 }
 
 class _WidgetAcessoriosState extends State<WidgetAcessorios> {
-  final _acessorioDAO = AcessorioDAO();
+  final _acessorioRepository = AcessorioRepository();
   late Future<List<DTOAcessorios>> _acessoriosFuture;
 
   @override
@@ -24,7 +24,7 @@ class _WidgetAcessoriosState extends State<WidgetAcessorios> {
 
   void _atualizarListaAcessorios() {
     setState(() {
-      _acessoriosFuture = _acessorioDAO.listar();
+      _acessoriosFuture = _acessorioRepository.listar();
     });
   }
 
@@ -61,11 +61,21 @@ class _WidgetAcessoriosState extends State<WidgetAcessorios> {
           ),
           TextButton(
             onPressed: () async {
-              final id = int.tryParse(acessorio.id ?? '');
-              if (id != null) {
-                await _acessorioDAO.excluir(id);
+              try {
+                await _acessorioRepository.excluir(acessorio);
                 Navigator.pop(ctx);
                 _atualizarListaAcessorios();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Acessório excluído com sucesso!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+              } catch (e) {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erro ao excluir peça: $e')),
+                );
               }
             },
             child: const Text('Excluir', style: TextStyle(color: Colors.red)),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_lary/banco/dao/acessorioDAO.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/repositories/acessorio_repository.dart';
 import '../componentes/campo_texto.dart';
 
 class WidgetCadastroAcessorios extends StatefulWidget {
@@ -14,7 +14,7 @@ class WidgetCadastroAcessorios extends StatefulWidget {
 
 class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
   final _formKey = GlobalKey<FormState>();
-  final _acessorioDAO = AcessorioDAO();
+  final _acessorioRepository = AcessorioRepository();
 
   late final TextEditingController _modeloController;
   late final TextEditingController _tipoController;
@@ -54,7 +54,7 @@ class _WidgetCadastroAcessoriosState extends State<WidgetCadastroAcessorios> {
       );
 
       try {
-        await _acessorioDAO.salvar(acessorioParaSalvar);
+        await _acessorioRepository.salvar(acessorioParaSalvar);
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(widget.acessorio == null ? 'Acessório salvo com sucesso!' : 'Acessório atualizado com sucesso!'),
