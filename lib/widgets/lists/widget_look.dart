@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOLook.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/look_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_look.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_look.dart';
 
 class WidgetLook extends StatefulWidget {
-  const WidgetLook({super.key});
+  final DTOUsuario usuario;
+  const WidgetLook({super.key, required this.usuario});
 
   @override
   State<WidgetLook> createState() => _WidgetLookState();
@@ -102,6 +105,7 @@ class _WidgetLookState extends State<WidgetLook> {
         title: const Text('Meus Looks'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

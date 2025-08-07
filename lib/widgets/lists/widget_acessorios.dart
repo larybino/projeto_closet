@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOAcessorios.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/acessorio_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_acessorios.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_acessorios.dart';
 
 
 class WidgetAcessorios extends StatefulWidget {
-  const WidgetAcessorios({super.key});
+  final DTOUsuario usuario;
+  const WidgetAcessorios({super.key, required this.usuario});
 
   @override
   State<WidgetAcessorios> createState() => _WidgetAcessoriosState();
@@ -92,6 +95,7 @@ class _WidgetAcessoriosState extends State<WidgetAcessorios> {
         title: const Text('Meus Acessórios'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

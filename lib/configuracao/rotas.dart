@@ -91,7 +91,10 @@ class Rotas {
         return _erroRota(mensagem: 'Usuário não fornecido para editar perfil.');
 
       case roupas:
-        return MaterialPageRoute(builder: (_) => const WidgetRoupa());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetRoupa(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de roupas.');
       case cadastrarRoupa:
         final roupa = args is DTORoupas ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroRoupa(roupa: roupa));
@@ -102,7 +105,10 @@ class Rotas {
         return _erroRota();
 
       case sapatos:
-        return MaterialPageRoute(builder: (_) => const WidgetSapato());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetSapato(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de sapatos.');
       case cadastrarSapato:
         final sapato = args is DTOSapato ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroSapato(sapato: sapato));
@@ -113,7 +119,10 @@ class Rotas {
         return _erroRota();
 
       case acessorios:
-        return MaterialPageRoute(builder: (_) => const WidgetAcessorios());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetAcessorios(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de acessórios.');
       case cadastrarAcessorios:
         final acessorio = args is DTOAcessorios ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroAcessorios(acessorio: acessorio));
@@ -124,7 +133,10 @@ class Rotas {
         return _erroRota();
 
       case looks:
-        return MaterialPageRoute(builder: (_) =>  WidgetLook());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetLook(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de looks.');
       case cadastrarLook:
         final look = args is DTOLook ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroLook(look: look));
@@ -137,10 +149,16 @@ class Rotas {
       case cadastrarEvento:
         return MaterialPageRoute(builder: (_) => const WidgetCadastroEvento());
       case eventos:
-        return MaterialPageRoute(builder: (_) => const WidgetEventos());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetEventos(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de eventos.');
       
       case malas:
-        return MaterialPageRoute(builder: (_) => const WidgetMalas());
+        if (args is DTOUsuario) {
+          return MaterialPageRoute(builder: (_) => WidgetMalas(usuario: args));
+        }
+        return _erroRota(mensagem: 'Usuário não fornecido para a tela de malas.');
       case cadastrarMala:
         final mala = args is DTOMala ? args : null;
         return MaterialPageRoute(builder: (_) => WidgetCadastroMala(mala: mala));

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:projeto_lary/banco/dto/DTOEvento.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/evento_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_evento.dart';
 
 class WidgetEventos extends StatefulWidget {
-  const WidgetEventos({super.key});
+  final DTOUsuario usuario;
+  const WidgetEventos({super.key, required this.usuario});
 
   @override
   State<WidgetEventos> createState() => _WidgetEventosState();
@@ -103,6 +106,7 @@ class _WidgetEventosState extends State<WidgetEventos> {
         title: const Text('Meus Eventos'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

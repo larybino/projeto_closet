@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/configuracao/rotas.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 
 class WidgetUsuario extends StatelessWidget {
   final DTOUsuario usuario;
@@ -14,6 +15,7 @@ class WidgetUsuario extends StatelessWidget {
         title: const Text('Meu Perfil'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

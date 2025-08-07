@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOMala.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/mala_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_malas.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_mala.dart';
 
 class WidgetMalas extends StatefulWidget {
-  const WidgetMalas({super.key});
+  final DTOUsuario usuario;
+  const WidgetMalas({super.key, required this.usuario});
 
   @override
   State<WidgetMalas> createState() => _WidgetListaMalasState();
@@ -99,6 +102,7 @@ class _WidgetListaMalasState extends State<WidgetMalas> {
         title: const Text('Minhas Malas'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

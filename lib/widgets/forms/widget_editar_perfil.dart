@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/usuario_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import '../componentes/campo_texto.dart';
 
 class WidgetEditarPerfil extends StatefulWidget {
@@ -74,6 +75,7 @@ class _WidgetEditarPerfilState extends State<WidgetEditarPerfil> {
         title: const Text('Editar Perfil'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body:Container(
         width: double.infinity,
         height: double.infinity,

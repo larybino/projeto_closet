@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTOSapato.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/sapato_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_sapato.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_sapato.dart';
 
 
 class WidgetSapato extends StatefulWidget {
-  const WidgetSapato({super.key});
+  final DTOUsuario usuario;
+  const WidgetSapato({super.key, required this.usuario});
 
   @override
   State<WidgetSapato> createState() => _WidgetSapatoState();
@@ -92,6 +95,7 @@ class _WidgetSapatoState extends State<WidgetSapato> {
         title: const Text('Meus Sapatos'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,

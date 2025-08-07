@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_lary/banco/dto/DTORoupas.dart';
+import 'package:projeto_lary/banco/dto/DTOUsuario.dart';
 import 'package:projeto_lary/repositories/roupa_repository.dart';
+import 'package:projeto_lary/widgets/componentes/widget_drawer_menu.dart';
 import 'package:projeto_lary/widgets/forms/widget_cadastro_roupa.dart';
 import 'package:projeto_lary/widgets/lists/detalhes/widget_detalhes_roupas.dart';
 
 class WidgetRoupa extends StatefulWidget {
-  const WidgetRoupa({super.key});
+  final DTOUsuario usuario;
+  const WidgetRoupa({super.key, required this.usuario});
 
   @override
   State<WidgetRoupa> createState() => _WidgetRoupaState();
@@ -91,6 +94,7 @@ class _WidgetRoupaState extends State<WidgetRoupa> {
         title: const Text('Minhas Roupas'),
         backgroundColor: const Color.fromARGB(255, 243, 33, 219),
       ),
+      drawer: WidgetDrawerMenu(usuario: widget.usuario),
       body: Container(
         width: double.infinity,
         height: double.infinity,
